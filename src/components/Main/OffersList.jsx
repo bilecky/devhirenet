@@ -25,7 +25,7 @@ const OffersList = () => {
   }
 
   return (
-    <section className='py-4 px-8'>
+    <section className='py-4 px-8 font-open'>
       {loading ? (
         <CirclesWithBar
           className='py-10'

@@ -8,6 +8,8 @@ const Search = () => {
 
 	const [showFilterModal, setShowFilterModal] = useState(false)
 	const [searchQuery, setSearchQuery] = useState('')
+	const [inputPlaceholder, setInputPlaceholder] =
+		useState('Search...')
 
 	const handleSalarySliderChange = event => {
 		const { value } = event.target
@@ -43,6 +45,16 @@ const Search = () => {
 		applySearchQuery(event.target.value)
 	}
 
+	const handleInputFocus = () => {
+		setInputPlaceholder(
+			'Enter position, location or company name'
+		)
+	}
+
+	const handleInputBlur = () => {
+		setInputPlaceholder('Search...')
+	}
+
 	const applySearchQuery = query => {
 		if (query) {
 			const filteredOffers = offers.filter(
@@ -72,18 +84,20 @@ const Search = () => {
 	}
 
 	return (
-		<div className='bg-violet-700'>
+		<div className='bg-gray-800'>
 			<Wrapper>
-				<h2 className='text-yellow-50 text-lg text-center py-5 font-semibold'>
+				<h2 className='text-yellow-50 font-open text-2xl text-center py-5 font-semibold'>
 					Connecting talent. Empowering Careers. DevHireNet.
 				</h2>
 				<div className='relative w-full'>
 					<form onSubmit={handleFormSubmit}>
 						<input
+							onFocus={handleInputFocus}
+							onBlur={handleInputBlur}
 							onChange={handleSearchInputChange}
 							type='text'
 							className='w-full px-4 py-2 pl-10 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500'
-							placeholder='Wyszukaj...'
+							placeholder={inputPlaceholder}
 						/>
 						<FiSearch
 							className='absolute top-2 left-2 text-gray-400'
@@ -92,16 +106,16 @@ const Search = () => {
 					</form>
 				</div>
 				<button
-					className='w-full flex items-center justify-center mt-4 py-2 bg-blue-500 rounded-none text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
+					className='w-full sm:w-2/3 flex m-auto items-center justify-center mt-4 py-2 bg-blue-500 rounded-none text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
 					onClick={handleFilterClick}
 				>
-					<FiFilter size={20} className='mr-2' />
-					Filtruj
+					Filter
 				</button>
+
 				{showFilterModal && (
 					<div className='fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50'>
 						<div className='bg-white rounded-lg p-4'>
-							<h2 className='text-xl font-bold mb-4'>Filtry</h2>
+							<h2 className='text-xl font-bold mb-4'>Filters</h2>
 							{/* Add filter options */}
 							<button
 								className='bg-blue-500 text-white px-4 py-2 rounded-lg'

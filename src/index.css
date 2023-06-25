@@ -1,17 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .icon {
 	border-radius: 50%;
-	border: 2px solid black;
-	padding: 4px;
+	padding: 5px;
      transition: transform 0.3s, background-color 0.3s;
 
 }
 
 .icon:hover {
 	transform: scale(1.1);
-	background-color: grey;
+	background-color: rgb(49, 49, 49);
 	color: white;
 }

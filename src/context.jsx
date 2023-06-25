@@ -12,9 +12,7 @@ export const useAppState = () => {
 	return React.useContext(AppStateContext)
 }
 
-const savedOffers = JSON.parse(
-	localStorage.getItem('likedOffers')
-)
+const savedOffers = JSON.parse(localStorage.getItem('initialLikedOffers') || '[]')
 
 export const AppStateProvider = ({ children }) => {
 	const [offers, setOffers] = React.useState(data)
@@ -44,12 +42,7 @@ export const AppStateProvider = ({ children }) => {
 		)
 	}, [likedOffers])
 
-	React.useEffect(() => {
-		localStorage.setItem(
-			'likedOffers',
-			JSON.stringify(likedOffers)
-		)
-	}, [likedOffers])
+
 
 	// value to pass to the context
 	const value = {

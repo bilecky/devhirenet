@@ -15,12 +15,12 @@ const Favorites = () => {
 			<div className='relative'>
 				<Link to='/'>
 					<FiArrowLeft
-						size={34}
-						className='absolute top-3 left-0 icon'
+						size={38}
+						className='absolute top-3 left-0 icon text-gray-50 font-semibold bg-blue-500'
 					/>
 				</Link>
 				<h2 className='text-2xl font-bold text-center py-8'>
-					Saved offers ({likedOffers.length}) :
+					Saved offers ({likedOffers && likedOffers.length}) :
 				</h2>
 				{likedOffers.map(favOffer => (
 					<Offer key={favOffer.id} {...favOffer} />

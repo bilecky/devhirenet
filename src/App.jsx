@@ -10,7 +10,6 @@ import {
 import { RiArrowGoBackLine } from 'react-icons/ri'
 
 import Navbar from './components/Header/Navbar'
-import Search from './components/Header/Search'
 import OffersList from './components/Main/OffersList'
 import Favorites from './components/Pages/Favorites'
 
