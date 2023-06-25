@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useAppState } from '../../context'
 import { FiFilter, FiSearch } from 'react-icons/fi'
+import Wrapper from '../../wrapper'
 
 const Search = () => {
 	const { filterOptions, setFilterOptions } = useAppState()
@@ -36,7 +37,8 @@ const Search = () => {
 	}
 
 	return (
-		<form className="py-7 px-8 bg-violet-700">
+		<form className=" bg-violet-700">
+    <Wrapper>
 			<h2 className='text-yellow-50 text-lg text-center py-5 font-semibold '>
 				Connecting talent. Empowering Careers. DevhireNet.
 			</h2>
@@ -77,6 +79,7 @@ const Search = () => {
 					</div>
 				</div>
 			)}
+      </Wrapper>
 		</form>
 	)
 }

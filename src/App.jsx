@@ -20,7 +20,6 @@ const App = () => {
 		<Router>
 			<div>
 				<Navbar />
-				<Search />
 
 				<Routes>
 					<Route path='/' element={<OffersList />} />

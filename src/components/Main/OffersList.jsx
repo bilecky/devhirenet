@@ -46,15 +46,14 @@ const OffersList = () => {
 					))}
 				</>
 			) : (
-				'nie ma ofert'
+				'no offers '
 			)}
 			{offers.length > displayedOffers.length && (
 				<button
 					onClick={showMoreOffers}
 					className='bg-blue-500 cursor-pointer  text-white px-4 py-2 mt-4 rounded flex m-auto'
 				>
-					Więcej ofert
-				</button>
+Show more				</button>
 			)}
 		</section>
 	)

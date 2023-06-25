@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { CiBookmark } from 'react-icons/ci'
 import { MdLocationOn } from 'react-icons/md'
 import { useAppState } from '../../context'
+import {AiFillDollarCircle} from 'react-icons/ai'
+
 
 const Offer = ({
 	id,
@@ -55,7 +57,7 @@ const Offer = ({
 						</span>
 					</h3>
 					<p className='text-md'>{company}</p>
-					<p className='text-sm'>{salaryRange}</p>
+					<p className='text-sm flex items-center my-1'><AiFillDollarCircle/>{salaryRange}</p>
 					<p className='text-sm flex items-center'>
 						<MdLocationOn className='mr-1' />
 						{location}
@@ -63,7 +65,7 @@ const Offer = ({
 				</div>
 				<div>
 					<CiBookmark
-						className={`cursor-pointer font-black	 ${
+						className={`cursor-pointer font-black mx-2	 ${
 							isOfferLiked ? 'text-red-500' : 'text-gray-500'
 						}`}
 						onClick={handleToggleLike}
