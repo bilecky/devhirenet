@@ -6,7 +6,7 @@ import Offer from '../Main/Offer'
 import Wrapper from '../../wrapper'
 
 const Favorites = () => {
-	const { likedOffers, setLikedOffers } = useAppState()
+	const { likedOffers } = useAppState()
 
 
 
