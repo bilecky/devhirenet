@@ -1,13 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { FiMoon, FiStar } from 'react-icons/fi'
 import { ImBlog } from 'react-icons/im'
 import { useAppState } from '../../context'
 import Wrapper from '../../wrapper'
-
+import Search from './Search'
 const Navbar = () => {
 	const { darkMode, toggleDarkMode, likedOffers } = useAppState()
+	const location = useLocation()
+
+	const isFavoritesPage = location.pathname === '/favorites'
+
 
 	return (
 		<div className='bg-violet-700'>
@@ -35,6 +39,8 @@ const Navbar = () => {
 					</div>
 				</header>
 			</Wrapper>
+			{!isFavoritesPage && <Search />} {/* Warunek renderowania dla komponentu Search */}
+
 		</div>
 	)
 }
