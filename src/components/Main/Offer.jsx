@@ -44,16 +44,16 @@ const Offer = ({
 	}
 
 	return (
-		<div className='flex items-center mb-4 p-2 shadow bg-slate-50'>
+		<div className='flex items-center mb-4 p-2 lg:mx-4 shadow bg-slate-50'>
 			<img
 				src={logo}
 				alt='Company Logo'
 				className='w-12 h-12 mr-4 p-1'
 			/>
 			<div className='flex items-center justify-between w-full'>
-				<div className='cursor-pointer'>
+				<div className='block lg:hidden cursor-pointer'>
 					<Link to={`/offer/${id}`} key={id}>
-						<h3 className='text-lg font-bold'>
+						<h3 className='text-sm font-bold'>
 							{position}{' '}
 							<span
 								className='text-gray-500'
@@ -63,13 +63,32 @@ const Offer = ({
 							</span>
 						</h3>
 					</Link>
-
 					<p className='text-md'>{company}</p>
-					<p className='text-sm flex items-center my-1'>
+					<p className='text-xs flex items-center my-1'>
 						<AiFillDollarCircle />
 						{salaryRange}
 					</p>
-					<p className='text-sm flex items-center'>
+					<p className='text-xs flex items-center'>
+						<MdLocationOn className='mr-1' />
+						{location}
+					</p>
+				</div>
+				<div className='hidden lg:block cursor-pointer'>
+					<h3 className='text-lg font-bold'>
+						{position}{' '}
+						<span
+							className='text-gray-500'
+							style={{ fontSize: '12px' }}
+						>
+							({level})
+						</span>
+					</h3>
+					<p className='text-md'>{company}</p>
+					<p className='text-xs flex items-center my-1'>
+						<AiFillDollarCircle />
+						{salaryRange}
+					</p>
+					<p className='text-xs flex items-center'>
 						<MdLocationOn className='mr-1' />
 						{location}
 					</p>
@@ -83,7 +102,7 @@ const Offer = ({
 					/>
 					{showTooltip && (
 						<div
-							className='absolute text-center top-0 right-0 bg-slate-50  text-black p-1 rounded'
+							className='absolute text-center top-0 right-0 bg-slate-50 text-black p-1 rounded'
 							style={{ fontSize: '12px' }}
 						>
 							{showTooltip}

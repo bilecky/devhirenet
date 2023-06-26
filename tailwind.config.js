@@ -7,6 +7,10 @@ export default {
 	],
 	theme: {
 		extend: {
+			height: {
+				'70vh': '70vh',
+				'30vh': '30vh'
+			   },
 			fontFamily: {
 				open: ['Open Sans', 'sans-serif'],
         oswald: ['Oswald', 'sans-serif'],

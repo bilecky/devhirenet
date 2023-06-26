@@ -16,13 +16,13 @@ const Navbar = () => {
 
 console.log(isDetailsPage)
 	return (
-		<div className='bg-gray-800'>
+		<div className='bg-gray-800 max-h-screen lg:h-30vh' >
 			<Wrapper>
 				<header className='flex items-center justify-between  text-gray-900'>
-					<div className='flex items-center text-gray-50'>
+					<div className=' lg:text-4xl flex items-center text-gray-50'>
 						<ImBlog />
 						<Link to='/'>
-							<span className='ml-3 text-2xl font-oswald'>
+							<span className='ml-3 text-2xl  lg:text-4xl font-oswald'>
 								DevHireNet
 							</span>
 						</Link>
@@ -43,7 +43,7 @@ console.log(isDetailsPage)
 					</div>
 				</header>
 			</Wrapper>
-			{!isFavoritesPage && !isDetailsPage   && <Search />}{' '}
+			{!isFavoritesPage && !isDetailsPage   && <Search  />}{' '}
 			{/* Warunek renderowania dla komponentu Search */}
 		</div>
 	)

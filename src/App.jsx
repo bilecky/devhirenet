@@ -19,7 +19,8 @@ import { OfferDetails } from './components/Pages/OfferDetails'
 const App = () => {
 	return (
 		<Router>
-			<div>
+			
+      <div className='h-screen'>
 				<Navbar />
 
 				<Routes>

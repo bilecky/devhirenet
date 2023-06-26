@@ -126,7 +126,7 @@ const Search = () => {
 			}
 
 			// Filtruj oferty na podstawie wybranych technologii
-      if (technologies[0] === 'all') {
+			if (technologies[0] === 'all') {
 				filteredByLevelAndTechnology = offers
 			} else if (
 				Array.isArray(technologies) &&
@@ -153,35 +153,98 @@ const Search = () => {
 	return (
 		<div className='bg-gray-800 ' style={{ paddingBottom: 0 }}>
 			<Wrapper className=''>
-				<h2 className='  text-yellow-50 font-open text-2xl text-center py-5 font-semibold'>
+				<h2 className='  text-yellow-50 font-open text-2xl text-center py-5 font-semibold lg:text-4xl'>
 					Connecting talent. Empowering Careers. DevHireNet.
 				</h2>
-				<div className='relative w-full'>
-					<form onSubmit={handleFormSubmit}>
-						<input
-							onFocus={handleInputFocus}
-							onBlur={handleInputBlur}
-							onChange={handleSearchInputChange}
-							type='text'
-							className='w-full px-4 py-2 pl-10 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500'
-							placeholder={inputPlaceholder}
-						/>
-						<FiSearch
-							className='absolute top-2 left-2 text-gray-400'
-							size={18}
-						/>
+				<div className='relative w-full hidden lg:block lg:my-4'>
+					<form className='flex' onSubmit={handleFormSubmit}>
+						<div className='w-1/3 px-2'>
+							<label className='block mb-2 font-semibold text-white'>
+								Search:
+							</label>
+							<div className='relative'>
+								<input
+									onFocus={handleInputFocus}
+									onBlur={handleInputBlur}
+									onChange={handleSearchInputChange}
+									type='text'
+									className='w-full px-4 py-2 pl-10 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 '
+									placeholder={inputPlaceholder}
+								/>
+								<FiSearch
+									className='absolute top-2 left-2 text-gray-400'
+									size={18}
+								/>
+							</div>
+						</div>
+						<div className='w-1/3 px-2'>
+							<label className='block mb-2 font-semibold text-white'>
+								Technology:
+							</label>
+							<select
+								value={filterOptions.technologies[0]}
+								onChange={handleTechnologiesSelectChange}
+								className='w-full px-4 py-2 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-100'
+							>
+								<option value='all'>All Levels</option>
+								<option value='java'>Java</option>
+								<option value='javascript'>JavaScript</option>
+								<option value='HTML'>HTML</option>
+								<option value='swift'>Swift</option>
+								<option value='Node.js'>Node.js</option>
+								<option value='SQL'>SQL</option>
+								<option value='Kubernetes'>Kubernetes</option>
+								<option value='Docker'>Dockers</option>
+								<option value='FPGA'>FPGA</option>
+								<option value='Python'>Python</option>
+								<option value='Azure'>Azure</option>
+							</select>
+						</div>
+						<div className='w-1/3 px-2'>
+							<label className='block mb-2 font-semibold text-white'>
+								Level:
+							</label>
+							<select
+								value={filterOptions.level}
+								onChange={handleLevelSelectChange}
+								className='w-full px-4 py-2 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-100'
+							>
+								<option value='all'>All Levels</option>
+								<option value='junior'>Junior</option>
+								<option value='mid'>Mid</option>
+								<option value='senior'>Senior</option>
+							</select>
+						</div>
 					</form>
 				</div>
+				<form
+					className='relative lg:hidden  '
+					onSubmit={handleFormSubmit}
+				>
+					<input
+						onFocus={handleInputFocus}
+						onBlur={handleInputBlur}
+						onChange={handleSearchInputChange}
+						type='text'
+						className='w-full px-4 py-2 pl-10 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 lg:w-auto'
+						placeholder={inputPlaceholder}
+					/>
+					<FiSearch
+						className='absolute top-2 left-2 text-gray-400'
+						size={18}
+					/>
+				</form>
 				<button
-					className='w-full sm:w-2/3 flex m-auto items-center justify-center mt-4 p-2 bg-blue-500 rounded-none text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
+					className='lg:hidden w-full sm:w-2/3 flex m-auto items-center justify-center mt-4 p-2 bg-blue-500 rounded-none text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
 					onClick={handleFilterClick}
 				>
 					<FiFilter className='mr-' />
 					Filter
 				</button>
-				handleTechnologiesSelectChange
+
 				{showFilterModal && (
-					<div className='fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50'>
+					//MOBILE
+					<div className='z-50 fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50'>
 						<div className='bg-white  p-10 w-2/3'>
 							<h2 className='text-xl font-bold mb-4'>Filters</h2>
 							<div className='mb-4'>
