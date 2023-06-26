@@ -12,7 +12,9 @@ export const useAppState = () => {
 	return React.useContext(AppStateContext)
 }
 
-const savedOffers = JSON.parse(localStorage.getItem('initialLikedOffers') || '[]')
+const savedOffers = JSON.parse(
+	localStorage.getItem('initialLikedOffers') || '[]'
+)
 
 export const AppStateProvider = ({ children }) => {
 	const [offers, setOffers] = React.useState(data)
@@ -25,11 +27,11 @@ export const AppStateProvider = ({ children }) => {
 	// state for liked offers
 	const [likedOffers, setLikedOffers] =
 		React.useState(savedOffers)
-          
+
 	// state for filter options
 	const [filterOptions, setFilterOptions] = React.useState({
-		salary: [0, 10000],
-		level: 'all',
+		salary: [0, 100000],
+		level: 'mid',
 		searchQuery: '',
 		filteredOffers: [],
 	})
@@ -42,8 +44,6 @@ export const AppStateProvider = ({ children }) => {
 		)
 	}, [likedOffers])
 
-
-
 	// value to pass to the context
 	const value = {
 		darkMode,
@@ -54,7 +54,8 @@ export const AppStateProvider = ({ children }) => {
 		setFilterOptions,
 		loading,
 		setLoading,
-		offers, setOffers
+		offers,
+		setOffers,
 	}
 
 	return (

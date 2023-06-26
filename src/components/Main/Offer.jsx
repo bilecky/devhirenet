@@ -3,7 +3,7 @@ import { CiBookmark } from 'react-icons/ci'
 import { MdLocationOn } from 'react-icons/md'
 import { useAppState } from '../../context'
 import { AiFillDollarCircle } from 'react-icons/ai'
-
+import { Link } from 'react-router-dom'
 const Offer = ({
 	id,
 	company,
@@ -52,15 +52,18 @@ const Offer = ({
 			/>
 			<div className='flex items-center justify-between w-full'>
 				<div className='cursor-pointer'>
-					<h3 className='text-lg font-bold'>
-						{position}{' '}
-						<span
-							className='text-gray-500'
-							style={{ fontSize: '12px' }}
-						>
-							({level})
-						</span>
-					</h3>
+					<Link to={`/offer/${id}`} key={id}>
+						<h3 className='text-lg font-bold'>
+							{position}{' '}
+							<span
+								className='text-gray-500'
+								style={{ fontSize: '12px' }}
+							>
+								({level})
+							</span>
+						</h3>
+					</Link>
+
 					<p className='text-md'>{company}</p>
 					<p className='text-sm flex items-center my-1'>
 						<AiFillDollarCircle />

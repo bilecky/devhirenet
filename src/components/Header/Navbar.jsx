@@ -12,7 +12,9 @@ const Navbar = () => {
 	const location = useLocation()
 
 	const isFavoritesPage = location.pathname === '/favorites'
+	const isDetailsPage = location.pathname.includes('offer')
 
+console.log(isDetailsPage)
 	return (
 		<div className='bg-gray-800'>
 			<Wrapper>
@@ -41,7 +43,7 @@ const Navbar = () => {
 					</div>
 				</header>
 			</Wrapper>
-			{!isFavoritesPage && <Search />}{' '}
+			{!isFavoritesPage && !isDetailsPage   && <Search />}{' '}
 			{/* Warunek renderowania dla komponentu Search */}
 		</div>
 	)

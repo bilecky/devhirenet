@@ -1,15 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAppState } from '../../context'
 import { FiFilter, FiSearch } from 'react-icons/fi'
 import Wrapper from '../../wrapper'
 
 const Search = () => {
-	const { setFilterOptions, offers } = useAppState()
+	const { setFilterOptions, offers, filterOptions } =
+		useAppState()
 
 	const [showFilterModal, setShowFilterModal] = useState(false)
 	const [searchQuery, setSearchQuery] = useState('')
 	const [inputPlaceholder, setInputPlaceholder] =
 		useState('Search...')
+
+	useEffect(() => {
+		applySearchQuery(searchQuery)
+	}, [filterOptions.level])
 
 	const handleSalarySliderChange = event => {
 		const { value } = event.target
@@ -54,34 +59,51 @@ const Search = () => {
 	const handleInputBlur = () => {
 		setInputPlaceholder('Search...')
 	}
-
-	const applySearchQuery = query => {
-		if (query) {
-			const filteredOffers = offers.filter(
-				offer =>
-					offer.position
-						.toLowerCase()
-						.includes(query.toLowerCase()) ||
-					offer.company
-						.toLowerCase()
-						.includes(query.toLowerCase()) ||
-					offer.location
-						.toLowerCase()
-						.includes(query.toLowerCase())
-			)
-			setFilterOptions(prevOptions => ({
-				...prevOptions,
-				searchQuery: query,
-				filteredOffers,
-			}))
-		} else {
-			setFilterOptions(prevOptions => ({
-				...prevOptions,
-				searchQuery: '',
-				filteredOffers: offers,
-			}))
-		}
-	}
+	console.log(filterOptions.level)
+  const applySearchQuery = query => {
+    const { level } = filterOptions;
+  
+    if (query) {
+      const filteredOffers = offers.filter(
+        offer =>
+          offer.position.toLowerCase().includes(query.toLowerCase()) ||
+          offer.company.toLowerCase().includes(query.toLowerCase()) ||
+          offer.location.toLowerCase().includes(query.toLowerCase())
+      );
+  
+      let filteredByLevel;
+      if (level === "all") {
+        filteredByLevel = filteredOffers;
+      } else {
+        filteredByLevel = filteredOffers.filter(
+          offer => offer.level.toLowerCase() === level.toLowerCase()
+        );
+      }
+  
+      setFilterOptions(prevOptions => ({
+        ...prevOptions,
+        searchQuery: query,
+        filteredOffers: filteredByLevel,
+      }));
+    } else {
+      let filteredByLevel;
+      if (level === "all") {
+        filteredByLevel = offers;
+      } else {
+        filteredByLevel = offers.filter(
+          offer => offer.level.toLowerCase() === level.toLowerCase()
+        );
+      }
+  
+      setFilterOptions(prevOptions => ({
+        ...prevOptions,
+        searchQuery: '',
+        filteredOffers: filteredByLevel,
+      }));
+    }
+  };
+  
+  
 
 	return (
 		<div className='bg-gray-800'>
@@ -116,12 +138,44 @@ const Search = () => {
 					<div className='fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50'>
 						<div className='bg-white rounded-lg p-4'>
 							<h2 className='text-xl font-bold mb-4'>Filters</h2>
-							{/* Add filter options */}
+							<div className='mb-4'>
+								<label className='block mb-2 font-semibold'>
+									Salary Range
+								</label>
+								<input
+									type='range'
+									min={0}
+									max={100000}
+									value={filterOptions.salary[1]}
+									onChange={handleSalarySliderChange}
+									className='w-full'
+								/>
+								<div className='flex justify-between'>
+									<span>{filterOptions.salary[0]}</span>
+									<span>{filterOptions.salary[1]}</span>
+								</div>
+							</div>
+							{/* Filtracja poziomu */}
+							<div className='mb-4'>
+								<label className='block mb-2 font-semibold'>
+									Level
+								</label>
+								<select
+									value={filterOptions.level}
+									onChange={handleLevelSelectChange}
+									className='w-full'
+								>
+									<option value='all'>All Levels</option>
+									<option value='junior'>Junior</option>
+									<option value='mid'>Mid</option>
+									<option value='senior'>Senior</option>
+								</select>
+							</div>{' '}
 							<button
 								className='bg-blue-500 text-white px-4 py-2 rounded-lg'
 								onClick={handleFilterModalClose}
 							>
-								Zamknij
+								Back
 							</button>
 						</div>
 					</div>
