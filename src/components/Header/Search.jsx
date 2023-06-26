@@ -14,13 +14,15 @@ const Search = () => {
 
 	useEffect(() => {
 		applySearchQuery(searchQuery)
-	}, [filterOptions.level])
+	}, [filterOptions.level, filterOptions.technologies])
 
-	const handleSalarySliderChange = event => {
+	console.log(filterOptions)
+
+	const handleTechnologiesSelectChange = event => {
 		const { value } = event.target
 		setFilterOptions(prevOptions => ({
 			...prevOptions,
-			salary: [+value[0], +value[1]],
+			technologies: [value],
 		}))
 	}
 
@@ -59,56 +61,99 @@ const Search = () => {
 	const handleInputBlur = () => {
 		setInputPlaceholder('Search...')
 	}
-	console.log(filterOptions.level)
-  const applySearchQuery = query => {
-    const { level } = filterOptions;
-  
-    if (query) {
-      const filteredOffers = offers.filter(
-        offer =>
-          offer.position.toLowerCase().includes(query.toLowerCase()) ||
-          offer.company.toLowerCase().includes(query.toLowerCase()) ||
-          offer.location.toLowerCase().includes(query.toLowerCase())
-      );
-  
-      let filteredByLevel;
-      if (level === "all") {
-        filteredByLevel = filteredOffers;
-      } else {
-        filteredByLevel = filteredOffers.filter(
-          offer => offer.level.toLowerCase() === level.toLowerCase()
-        );
-      }
-  
-      setFilterOptions(prevOptions => ({
-        ...prevOptions,
-        searchQuery: query,
-        filteredOffers: filteredByLevel,
-      }));
-    } else {
-      let filteredByLevel;
-      if (level === "all") {
-        filteredByLevel = offers;
-      } else {
-        filteredByLevel = offers.filter(
-          offer => offer.level.toLowerCase() === level.toLowerCase()
-        );
-      }
-  
-      setFilterOptions(prevOptions => ({
-        ...prevOptions,
-        searchQuery: '',
-        filteredOffers: filteredByLevel,
-      }));
-    }
-  };
-  
-  
+	const applySearchQuery = query => {
+		const { level, technologies } = filterOptions
+
+		if (query) {
+			const filteredOffers = offers.filter(
+				offer =>
+					offer.position
+						.toLowerCase()
+						.includes(query.toLowerCase()) ||
+					offer.company
+						.toLowerCase()
+						.includes(query.toLowerCase()) ||
+					offer.location
+						.toLowerCase()
+						.includes(query.toLowerCase())
+			)
+
+			let filteredByLevelAndTechnology
+
+			if (level === 'all') {
+				filteredByLevelAndTechnology = filteredOffers
+			} else {
+				filteredByLevelAndTechnology = filteredOffers.filter(
+					offer =>
+						offer.level.toLowerCase() === level.toLowerCase()
+				)
+			}
+
+			if (technologies[0] === 'all') {
+				filteredByLevelAndTechnology = filteredOffers
+			}
+
+			// Filtruj oferty na podstawie wybranych technologii
+			else if (
+				Array.isArray(technologies) &&
+				technologies.length > 0
+			) {
+				filteredByLevelAndTechnology =
+					filteredByLevelAndTechnology.filter(offer =>
+						technologies.some(technology =>
+							offer.technologies
+								.map(t => t.toLowerCase())
+								.includes(technology.toLowerCase())
+						)
+					)
+			}
+
+			setFilterOptions(prevOptions => ({
+				...prevOptions,
+				searchQuery: query,
+				filteredOffers: filteredByLevelAndTechnology,
+			}))
+		} else {
+			let filteredByLevelAndTechnology
+
+			if (level === 'all') {
+				filteredByLevelAndTechnology = offers
+			} else {
+				filteredByLevelAndTechnology = offers.filter(
+					offer =>
+						offer.level.toLowerCase() === level.toLowerCase()
+				)
+			}
+
+			// Filtruj oferty na podstawie wybranych technologii
+      if (technologies[0] === 'all') {
+				filteredByLevelAndTechnology = offers
+			} else if (
+				Array.isArray(technologies) &&
+				technologies.length > 0
+			) {
+				filteredByLevelAndTechnology =
+					filteredByLevelAndTechnology.filter(offer =>
+						technologies.some(technology =>
+							offer.technologies
+								.map(t => t.toLowerCase())
+								.includes(technology.toLowerCase())
+						)
+					)
+			}
+
+			setFilterOptions(prevOptions => ({
+				...prevOptions,
+				searchQuery: '',
+				filteredOffers: filteredByLevelAndTechnology,
+			}))
+		}
+	}
 
 	return (
-		<div className='bg-gray-800'>
-			<Wrapper>
-				<h2 className='text-yellow-50 font-open text-2xl text-center py-5 font-semibold'>
+		<div className='bg-gray-800 ' style={{ paddingBottom: 0 }}>
+			<Wrapper className=''>
+				<h2 className='  text-yellow-50 font-open text-2xl text-center py-5 font-semibold'>
 					Connecting talent. Empowering Careers. DevHireNet.
 				</h2>
 				<div className='relative w-full'>
@@ -128,42 +173,49 @@ const Search = () => {
 					</form>
 				</div>
 				<button
-					className='w-full sm:w-2/3 flex m-auto items-center justify-center mt-4 py-2 bg-blue-500 rounded-none text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
+					className='w-full sm:w-2/3 flex m-auto items-center justify-center mt-4 p-2 bg-blue-500 rounded-none text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
 					onClick={handleFilterClick}
 				>
+					<FiFilter className='mr-' />
 					Filter
 				</button>
-
+				handleTechnologiesSelectChange
 				{showFilterModal && (
 					<div className='fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50'>
-						<div className='bg-white rounded-lg p-4'>
+						<div className='bg-white  p-10 w-2/3'>
 							<h2 className='text-xl font-bold mb-4'>Filters</h2>
 							<div className='mb-4'>
 								<label className='block mb-2 font-semibold'>
-									Salary Range
+									Technology:
 								</label>
-								<input
-									type='range'
-									min={0}
-									max={100000}
-									value={filterOptions.salary[1]}
-									onChange={handleSalarySliderChange}
-									className='w-full'
-								/>
-								<div className='flex justify-between'>
-									<span>{filterOptions.salary[0]}</span>
-									<span>{filterOptions.salary[1]}</span>
-								</div>
-							</div>
+								<select
+									value={filterOptions.technologies[0]}
+									onChange={handleTechnologiesSelectChange}
+									className='w-full bg-slate-100'
+								>
+									<option value='all'>All Levels</option>
+									<option value='java'>Java</option>
+									<option value='javascript'>JavaScript</option>
+									<option value='HTML'>HTML</option>
+									<option value='swift'>Swift</option>
+									<option value='Node.js'>Node.js</option>
+									<option value='SQL'>SQL</option>
+									<option value='Kubernetes'>Kubernetes</option>
+									<option value='Docker'>Dockers</option>
+									<option value='FPGA'>FPGA</option>
+									<option value='Python'>Python</option>
+									<option value='Azure'>Azure</option>
+								</select>
+							</div>{' '}
 							{/* Filtracja poziomu */}
-							<div className='mb-4'>
+							<div className='mb-8'>
 								<label className='block mb-2 font-semibold'>
-									Level
+									Level:
 								</label>
 								<select
 									value={filterOptions.level}
 									onChange={handleLevelSelectChange}
-									className='w-full'
+									className='w-full bg-slate-100'
 								>
 									<option value='all'>All Levels</option>
 									<option value='junior'>Junior</option>
@@ -172,7 +224,7 @@ const Search = () => {
 								</select>
 							</div>{' '}
 							<button
-								className='bg-blue-500 text-white px-4 py-2 rounded-lg'
+								className='bg-blue-500 text-white px-6 py-2 m-auto flex '
 								onClick={handleFilterModalClose}
 							>
 								Back

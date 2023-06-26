@@ -30,8 +30,8 @@ export const AppStateProvider = ({ children }) => {
 
 	// state for filter options
 	const [filterOptions, setFilterOptions] = React.useState({
-		salary: [0, 100000],
-		level: 'mid',
+		technologies: 'all',
+		level: 'all',
 		searchQuery: '',
 		filteredOffers: [],
 	})
