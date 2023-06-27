@@ -22,9 +22,13 @@ const Favorites = () => {
 				<h2 className='text-2xl font-bold text-center py-8'>
 					Saved offers ({likedOffers && likedOffers.length}) :
 				</h2>
+				<div className='flex-col m-auto  lg:w-2/3'>
 				{likedOffers.map(favOffer => (
-					<Offer key={favOffer.id} {...favOffer} />
+					<Offer  key={favOffer.id} {...favOffer} />
 				))}
+
+				</div>
+				
 			</div>
 		</Wrapper>
 	)

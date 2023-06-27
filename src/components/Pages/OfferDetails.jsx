@@ -1,7 +1,12 @@
-import { useAppState } from '../../context'
-import { FiFilter, FiSearch, FiPlay, FiArrowLeft } from 'react-icons/fi'
-
-import Wrapper from '../../wrapper'
+import { useAppState } from '../../context';
+import React, { useEffect, useState } from 'react';
+import {
+	FiFilter,
+	FiSearch,
+	FiPlay,
+	FiArrowLeft,
+} from 'react-icons/fi';
+import Wrapper from '../../wrapper';
 import {
 	BrowserRouter as Router,
 	Route,
@@ -11,26 +16,66 @@ import {
 	useNavigate,
 	useLocation,
 	useParams,
-} from 'react-router-dom'
+} from 'react-router-dom';
+import { CirclesWithBar } from 'react-loader-spinner';
+
 export const OfferDetails = () => {
-	const { id } = useParams()
-	const { offers } = useAppState()
+	const { id } = useParams();
+	const [loading, setLoading] = useState(false);
+	const [offers, setOffers] = useState([]);
+	const offer = offers.find((offer) => offer.id.toString() === id);
 
-	const offer = offers.find(offer => offer.id.toString() === id)
-	console.log(offer)
+	const fetchJobOffers = async () => {
+		setLoading(true);
+		try {
+			const response = await fetch(
+				'https://76bhjefw83.execute-api.eu-west-1.amazonaws.com/DevHireNet_FetchOffers'
+			);
+			const data = await response.json();
+			setOffers(data);
+			setLoading(false);
+		} catch (err) {
+			setLoading(false);
+		}
+	};
 
+	useEffect(() => {
+		fetchJobOffers();
+	}, []);
 
+	if (loading) {
+		return (
+			<CirclesWithBar
+				className='py-10'
+				height='100'
+				width='100'
+				wrapperStyle={{
+					paddingTop: '160px',
+					justifyContent: 'center',
+				}}
+				wrapperClass=''
+				visible={true}
+				outerCircleColor='rgb(59 130 246)'
+				innerCircleColor='rgb(59 130 246)'
+				barColor='rgb(59 130 246)'
+				ariaLabel='circles-with-bar-loading'
+			/>
+		);
+	}
 
 	if (!offer) {
-		return <div>Offer not found.</div>
+		return <div>Offer not found.</div>;
 	}
 
 	return (
-		<Wrapper >
+		<Wrapper>
 			<div className='bg-slate-50 shadow-lg rounded-lg p-6  relative'>
-               <Link to="/" className="absolute top-7 right-7 icon text-gray-50 font-semibold bg-blue-500 rounded-full p-2">
-      <FiArrowLeft size={28} />
-    </Link>
+				<Link
+					to='/'
+					className='absolute top-7 right-7 icon text-gray-50 font-semibold bg-blue-500 rounded-full p-2'
+				>
+					<FiArrowLeft size={28} />
+				</Link>
 				<div className='flex items-center mb-4'>
 					<img
 						src={offer.logo}
@@ -78,10 +123,10 @@ export const OfferDetails = () => {
 						</ul>{' '}
 					</span>
 				</div>
-                    <div className='text-sm text-gray-700 mb-4'>
+				<div className='text-sm text-gray-700 mb-4'>
 					{' '}
 					<span className='font-bold'>
-                         Benefits:
+						Benefits:
 						<ul className='mt-2'>
 							{offer.benefits.map((benefit, index) => {
 								return (

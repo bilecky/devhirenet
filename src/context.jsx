@@ -41,15 +41,17 @@ export const AppStateProvider = ({ children }) => {
 				'https://76bhjefw83.execute-api.eu-west-1.amazonaws.com/DevHireNet_FetchOffers'
 			)
 			const data = await response.json()
-			console.log(data)
 			setOffers(data)
 			setLoading(false)
 
 		} catch (err) {
-			console.log(err)
 			setLoading(false)
 		}
 	}
+	React.useEffect(() => {
+		fetchJobOffers()
+
+	}, [])
 
 	React.useEffect(() => {
 		// change likedOffers to initialLikedOffers
@@ -57,8 +59,8 @@ export const AppStateProvider = ({ children }) => {
 			'initialLikedOffers',
 			JSON.stringify(likedOffers)
 		)
-		fetchJobOffers()
-	}, [])
+
+	}, [likedOffers])
 
 	// value to pass to the context
 	const value = {
