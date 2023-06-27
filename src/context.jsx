@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import data from './data'
 // create a context for the app state
 const AppStateContext = React.createContext()
 
@@ -15,9 +14,8 @@ export const useAppState = () => {
 const savedOffers = JSON.parse(
 	localStorage.getItem('initialLikedOffers') || '[]'
 )
-
 export const AppStateProvider = ({ children }) => {
-	const [offers, setOffers] = React.useState(data)
+	const [offers, setOffers] = React.useState([])
 
 	const [loading, setLoading] = React.useState(false)
 
@@ -36,13 +34,31 @@ export const AppStateProvider = ({ children }) => {
 		filteredOffers: [],
 	})
 
+	const fetchJobOffers = async () => {
+		setLoading(true)
+		try {
+			const response = await fetch(
+				'https://76bhjefw83.execute-api.eu-west-1.amazonaws.com/DevHireNet_FetchOffers'
+			)
+			const data = await response.json()
+			console.log(data)
+			setOffers(data)
+			setLoading(false)
+
+		} catch (err) {
+			console.log(err)
+			setLoading(false)
+		}
+	}
+
 	React.useEffect(() => {
 		// change likedOffers to initialLikedOffers
 		localStorage.setItem(
 			'initialLikedOffers',
 			JSON.stringify(likedOffers)
 		)
-	}, [likedOffers])
+		fetchJobOffers()
+	}, [])
 
 	// value to pass to the context
 	const value = {

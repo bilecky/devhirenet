@@ -14,7 +14,7 @@ const OffersList = () => {
 	const [selectedOfferId, setSelectedOfferId] =
 		React.useState(null)
 
-	const { filteredOffers, searchQuery } = filterOptions
+	const { filteredOffers, searchQuery } = filterOptions 
 	const location = useLocation()
 
 	// const offersToDisplay = searchQuery ? filteredOffers : offers
@@ -50,7 +50,7 @@ const OffersList = () => {
 			// we're clearing input so after return we have all offers
 			setFilterOptions(prev => ({ ...prev, searchQuery: '' }))
 		}
-	}, [location.pathname])
+	}, [location.pathname, offers])
 
 	const handleSelectOffer = offerId => {
 		setSelectedOfferId(offerId)
@@ -70,9 +70,9 @@ const OffersList = () => {
 						}}
 						wrapperClass=''
 						visible={true}
-						outerCircleColor='violet'
-						innerCircleColor='violet'
-						barColor='violet'
+						outerCircleColor='rgb(59 130 246)'
+						innerCircleColor='rgb(59 130 246)'
+						barColor='rgb(59 130 246)'
 						ariaLabel='circles-with-bar-loading'
 					/>
 				) : offersToDisplay ? (
@@ -84,14 +84,15 @@ const OffersList = () => {
 				) : (
 					'no offers '
 				)}
-				{offersToDisplay.length > displayedOffers.length && (
-					<button
-						onClick={showMoreOffers}
-						className='bg-blue-500 cursor-pointer  text-white px-4 py-2 mt-4 rounded flex m-auto'
-					>
-						Show more{' '}
-					</button>
-				)}
+				{!loading &&
+					offersToDisplay.length > displayedOffers.length && (
+						<button
+							onClick={showMoreOffers}
+							className='bg-blue-500 cursor-pointer  text-white px-4 py-2 mt-4 rounded flex m-auto'
+						>
+							Show more{' '}
+						</button>
+					)}
 			</section>
 
 			{/* DESKTOP */}
@@ -110,9 +111,9 @@ const OffersList = () => {
 							}}
 							wrapperClass=''
 							visible={true}
-							outerCircleColor='violet'
-							innerCircleColor='violet'
-							barColor='violet'
+							outerCircleColor='rgb(59 130 246)'
+							innerCircleColor='rgb(59 130 246)'
+							barColor='rgb(59 130 246)'
 							ariaLabel='circles-with-bar-loading'
 						/>
 					) : offersToDisplay ? (
@@ -130,24 +131,41 @@ const OffersList = () => {
 					) : (
 						'no offers '
 					)}
-					{offersToDisplay.length > displayedOffers.length && (
-						<button
-							onClick={showMoreOffers}
-							className='bg-blue-500 cursor-pointer  text-white px-4 py-2 mt-4 rounded flex m-auto'
-						>
-							Show more{' '}
-						</button>
-					)}
+					{!loading &&
+						offersToDisplay.length > displayedOffers.length && (
+							<button
+								onClick={showMoreOffers}
+								className='bg-blue-500 cursor-pointer  text-white px-4 py-2 mt-4 rounded flex m-auto'
+							>
+								Show more{' '}
+							</button>
+						)}
 				</div>
 				<div className='lg:w-1/2 lg:h-70vh'>
 					{/* Wyświetlanie szczegółów wybranej oferty */}
 					{selectedOfferId ? (
 						<OfferDesktop offerId={selectedOfferId} />
+					) : loading ? (
+						<CirclesWithBar
+							className='py-10'
+							height='100'
+							width='100'
+							wrapperStyle={{
+								paddingTop: '160px',
+								justifyContent: 'center',
+							}}
+							wrapperClass=''
+							visible={true}
+							outerCircleColor='rgb(59 130 246)'
+							innerCircleColor='rgb(59 130 246)'
+							barColor='rgb(59 130 246)'
+							ariaLabel='circles-with-bar-loading'
+						/>
 					) : (
 						<div className='flex flex-col items-center justify-center h-full'>
 							<div className='flex flex-col items-center'>
-								<ImSearch className='text-6xl text-gray-500 mb-4' />
-								<p className='text-lg font-bold text-center'>
+								<ImSearch className='text-6xl text-blue-500 mb-4' />
+								<p className='text-lg  text-center'>
 									Click on an offer to view details
 								</p>
 							</div>

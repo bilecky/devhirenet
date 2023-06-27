@@ -18,14 +18,14 @@ const Navbar = () => {
 		<div className='bg-gray-800 max-h-screen lg:h-30vh' >
 			<Wrapper>
 				<header className='flex items-center justify-between  text-gray-900'>
+						<Link to='/'>
 					<div className=' lg:text-4xl flex items-center text-gray-50'>
 						<ImBlog />
-						<Link to='/'>
 							<span className='ml-3 text-2xl  lg:text-4xl font-oswald'>
 								DevHireNet
 							</span>
-						</Link>
 					</div>
+						</Link>
 					<div className='flex items-center text-gray-50'>
 						<button
 							className='mr-6 text-yellow-500 focus:outline-none'

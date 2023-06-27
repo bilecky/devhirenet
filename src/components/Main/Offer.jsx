@@ -45,7 +45,7 @@ const Offer = ({
 			setLikedOffers([...likedOffers, selectedOffer])
 			setShowTooltip('Offer Added')
 		}
-		setTimeout(() => setShowTooltip(false), 2000)
+		setTimeout(() => setShowTooltip(false), 695)
 	}
 
 	const handleClick = () => {
@@ -63,7 +63,7 @@ const Offer = ({
 				className='w-12 h-12 mr-4 p-1'
 			/>
 			<div className='flex items-center justify-between w-full'>
-				<div className='block lg:hidden cursor-pointer'>
+			{ !isFavoritesPage && (<div className='block lg:hidden cursor-pointer'>
 					<Link to={`/offer/${id}`} key={id}>
 						<h3 className='text-sm font-bold'>
 							{position}{' '}
@@ -77,14 +77,14 @@ const Offer = ({
 					</Link>
 					<p className='text-md'>{company}</p>
 					<p className='text-xs flex items-center my-1'>
-						<AiFillDollarCircle />
+					<AiFillDollarCircle className='mr-1' />
 						{salaryRange}
 					</p>
 					<p className='text-xs flex items-center'>
 						<MdLocationOn className='mr-1' />
 						{location}
 					</p>
-				</div>
+				</div>)}
 
 				{/* DESKTOP */}
 				{isFavoritesPage ? (
@@ -102,7 +102,7 @@ const Offer = ({
 						</Link>
 						<p className='text-md'>{company}</p>
 						<p className='text-xs flex items-center my-1'>
-							<AiFillDollarCircle />
+							<AiFillDollarCircle className='mr-1' />
 							{salaryRange}
 						</p>
 						<p className='text-xs flex items-center'>
@@ -126,7 +126,7 @@ const Offer = ({
 						</h3>
 						<p className='text-md'>{company}</p>
 						<p className='text-xs flex items-center my-1'>
-							<AiFillDollarCircle />
+						<AiFillDollarCircle className='mr-1' />
 							{salaryRange}
 						</p>
 						<p className='text-xs flex items-center'>
