@@ -4,12 +4,15 @@ import Offer from './Offer'
 import React from 'react'
 import { useLocation } from 'react-router'
 import { OfferDetails } from '../Pages/OfferDetails'
+import { OfferDesktop } from '../Pages/OfferDesktop'
+import { ImSearch } from 'react-icons/im'
 
 const OffersList = () => {
 	const { loading, offers, filterOptions, setFilterOptions } =
 		useAppState()
 
-	const [selectedOffer, setSelectedOffer] = React.useState(null)
+	const [selectedOfferId, setSelectedOfferId] =
+		React.useState(null)
 
 	const { filteredOffers, searchQuery } = filterOptions
 	const location = useLocation()
@@ -47,11 +50,11 @@ const OffersList = () => {
 			// we're clearing input so after return we have all offers
 			setFilterOptions(prev => ({ ...prev, searchQuery: '' }))
 		}
-	}, [location.pathname, offers])
+	}, [location.pathname])
 
-	const handleSelectOffer = (offer) => {
-		setSelectedOffer(offer);
-	   }
+	const handleSelectOffer = offerId => {
+		setSelectedOfferId(offerId)
+	}
 
 	return (
 		<>
@@ -91,10 +94,9 @@ const OffersList = () => {
 				)}
 			</section>
 
-				{/* DESKTOP */}
+			{/* DESKTOP */}
 
-
-			<section className='lg:h-70vh lg:px-2  py-4 px-8 font-open lg:flex  lg:justify-between '>
+			<section className='hidden overflow-hidden   lg:h-70vh lg:px-2  py-4 px-8 font-open lg:flex  lg:justify-between '>
 				<div className='lg:w-1/2 max-h-full overflow-y-auto'>
 					{/* Lista ofert */}
 					{loading ? (
@@ -117,10 +119,11 @@ const OffersList = () => {
 						<>
 							{displayedOffers.map(offer => (
 								<Offer
+									singleOffer={offer}
+									handleSelectDESKTOPOffer={handleSelectOffer}
 									className='lg:px-5'
 									key={offer.id}
 									{...offer}
-									onClick={() => handleSelectOffer(offer)}
 								/>
 							))}
 						</>
@@ -136,9 +139,20 @@ const OffersList = () => {
 						</button>
 					)}
 				</div>
-				<div className='lg:w-1/2'>
-					{/* Szczegóły wybranej oferty */}
-    {selectedOffer && <OfferDetails offer={selectedOffer} />}
+				<div className='lg:w-1/2 lg:h-70vh'>
+					{/* Wyświetlanie szczegółów wybranej oferty */}
+					{selectedOfferId ? (
+						<OfferDesktop offerId={selectedOfferId} />
+					) : (
+						<div className='flex flex-col items-center justify-center h-full'>
+							<div className='flex flex-col items-center'>
+								<ImSearch className='text-6xl text-gray-500 mb-4' />
+								<p className='text-lg font-bold text-center'>
+									Click on an offer to view details
+								</p>
+							</div>
+						</div>
+					)}
 				</div>
 			</section>
 		</>

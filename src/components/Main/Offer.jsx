@@ -3,7 +3,7 @@ import { CiBookmark } from 'react-icons/ci'
 import { MdLocationOn } from 'react-icons/md'
 import { useAppState } from '../../context'
 import { AiFillDollarCircle } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 const Offer = ({
 	id,
 	company,
@@ -12,9 +12,14 @@ const Offer = ({
 	level,
 	salaryRange,
 	location,
+	handleSelectDESKTOPOffer,
+	singleOffer,
 }) => {
 	const { likedOffers, setLikedOffers } = useAppState()
 	const [showTooltip, setShowTooltip] = React.useState(false)
+
+	const getLocation = useLocation()
+
 
 	const isOfferLiked = likedOffers
 		? likedOffers.some(offer => offer.id === id)
@@ -43,7 +48,14 @@ const Offer = ({
 		setTimeout(() => setShowTooltip(false), 2000)
 	}
 
+	const handleClick = () => {
+		handleSelectDESKTOPOffer(singleOffer.id)
+	}
+	const isFavoritesPage = getLocation.pathname.includes('favorites')
+	console.log(isFavoritesPage)
+
 	return (
+		//MOBILE
 		<div className='flex items-center mb-4 p-2 lg:mx-4 shadow bg-slate-50'>
 			<img
 				src={logo}
@@ -73,26 +85,58 @@ const Offer = ({
 						{location}
 					</p>
 				</div>
-				<div className='hidden lg:block cursor-pointer'>
-					<h3 className='text-lg font-bold'>
-						{position}{' '}
-						<span
-							className='text-gray-500'
-							style={{ fontSize: '12px' }}
-						>
-							({level})
-						</span>
-					</h3>
-					<p className='text-md'>{company}</p>
-					<p className='text-xs flex items-center my-1'>
-						<AiFillDollarCircle />
-						{salaryRange}
-					</p>
-					<p className='text-xs flex items-center'>
-						<MdLocationOn className='mr-1' />
-						{location}
-					</p>
-				</div>
+
+				{/* DESKTOP */}
+				{isFavoritesPage ? (
+					<div className='block cursor-pointer'>
+						<Link to={`/offer/${id}`} key={id}>
+							<h3 className='text-sm font-bold'>
+								{position}{' '}
+								<span
+									className='text-gray-500'
+									style={{ fontSize: '12px' }}
+								>
+									({level})
+								</span>
+							</h3>
+						</Link>
+						<p className='text-md'>{company}</p>
+						<p className='text-xs flex items-center my-1'>
+							<AiFillDollarCircle />
+							{salaryRange}
+						</p>
+						<p className='text-xs flex items-center'>
+							<MdLocationOn className='mr-1' />
+							{location}
+						</p>
+					</div>
+				) : (
+					<div
+						onClick={handleClick}
+						className='hidden lg:block cursor-pointer'
+					>
+						<h3 className='text-lg font-bold'>
+							{position}{' '}
+							<span
+								className='text-gray-500'
+								style={{ fontSize: '12px' }}
+							>
+								({level})
+							</span>
+						</h3>
+						<p className='text-md'>{company}</p>
+						<p className='text-xs flex items-center my-1'>
+							<AiFillDollarCircle />
+							{salaryRange}
+						</p>
+						<p className='text-xs flex items-center'>
+							<MdLocationOn className='mr-1' />
+							{location}
+						</p>
+					</div>
+				)}
+
+		
 				<div className='relative'>
 					<CiBookmark
 						className={`cursor-pointer text-xl font-black mx-2 ${

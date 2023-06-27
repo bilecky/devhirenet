@@ -1,5 +1,10 @@
 import { useAppState } from '../../context'
-import { FiFilter, FiSearch, FiPlay, FiArrowLeft } from 'react-icons/fi'
+import {
+	FiFilter,
+	FiSearch,
+	FiPlay,
+	FiArrowLeft,
+} from 'react-icons/fi'
 
 import Wrapper from '../../wrapper'
 import {
@@ -12,25 +17,24 @@ import {
 	useLocation,
 	useParams,
 } from 'react-router-dom'
-export const OfferDetails = () => {
-	const { id } = useParams()
+export const OfferDesktop = props => {
 	const { offers } = useAppState()
 
-	const offer = offers.find(offer => offer.id.toString() === id)
-	console.log(offer)
+	const desktopId = props.offerId
 
-
+	const offer = offers.find(
+		offer => offer.id === desktopId
+	)
+	console.log( typeof desktopId)
+	console.log( typeof offer)
 
 	if (!offer) {
 		return <div>Offer not found.</div>
 	}
 
 	return (
-		<Wrapper >
-			<div className='bg-slate-50 shadow-lg rounded-lg p-6  relative'>
-               <Link to="/" className="absolute top-7 right-7 icon text-gray-50 font-semibold bg-blue-500 rounded-full p-2">
-      <FiArrowLeft size={28} />
-    </Link>
+			<div className='bg-slate-50   p-6  relative mx-2'>
+			
 				<div className='flex items-center mb-4'>
 					<img
 						src={offer.logo}
@@ -78,10 +82,10 @@ export const OfferDetails = () => {
 						</ul>{' '}
 					</span>
 				</div>
-                    <div className='text-sm text-gray-700 mb-4'>
+				<div className='text-sm text-gray-700 mb-4'>
 					{' '}
 					<span className='font-bold'>
-                         Benefits:
+						Benefits:
 						<ul className='mt-2'>
 							{offer.benefits.map((benefit, index) => {
 								return (
@@ -109,6 +113,5 @@ export const OfferDetails = () => {
 					Apply
 				</button>
 			</div>
-		</Wrapper>
 	)
 }

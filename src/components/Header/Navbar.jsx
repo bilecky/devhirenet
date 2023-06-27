@@ -14,7 +14,6 @@ const Navbar = () => {
 	const isFavoritesPage = location.pathname === '/favorites'
 	const isDetailsPage = location.pathname.includes('offer')
 
-console.log(isDetailsPage)
 	return (
 		<div className='bg-gray-800 max-h-screen lg:h-30vh' >
 			<Wrapper>

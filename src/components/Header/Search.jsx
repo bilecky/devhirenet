@@ -16,7 +16,6 @@ const Search = () => {
 		applySearchQuery(searchQuery)
 	}, [filterOptions.level, filterOptions.technologies])
 
-	console.log(filterOptions)
 
 	const handleTechnologiesSelectChange = event => {
 		const { value } = event.target
