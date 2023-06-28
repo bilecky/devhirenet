@@ -26,9 +26,7 @@ const Offer = ({
 
 	const handleToggleLike = () => {
 		if (isOfferLiked) {
-			const updatedOffers = likedOffers.filter(
-				offer => offer.id !== id
-			)
+			const updatedOffers = likedOffers.filter(offer => offer.id !== id)
 			setLikedOffers(updatedOffers)
 			setShowTooltip('Offer Deleted')
 		} else {
@@ -50,8 +48,7 @@ const Offer = ({
 	const handleClick = () => {
 		handleSelectDESKTOPOffer(singleOffer.id)
 	}
-	const isFavoritesPage =
-		getLocation.pathname.includes('favorites')
+	const isFavoritesPage = getLocation.pathname.includes('favorites')
 
 	return (
 		//MOBILE
@@ -60,21 +57,14 @@ const Offer = ({
 		hover:bg-slate-200 transition duration-800
 		'
 		>
-			<img
-				src={logo}
-				alt='Company Logo'
-				className='w-12 h-12 mr-4 p-1'
-			/>
+			<img src={logo} alt='Company Logo' className='w-12 h-12 mr-4 p-1' />
 			<div className='flex items-center justify-between w-full'>
 				{!isFavoritesPage && (
 					<div className='block lg:hidden cursor-pointer'>
 						<Link to={`/offer/${id}`} key={id}>
 							<h3 className='text-sm font-bold'>
 								{position}{' '}
-								<span
-									className='text-gray-500'
-									style={{ fontSize: '12px' }}
-								>
+								<span className='text-gray-500' style={{ fontSize: '12px' }}>
 									({level})
 								</span>
 							</h3>
@@ -97,10 +87,7 @@ const Offer = ({
 						<Link to={`/offer/${id}`} key={id}>
 							<h3 className='text-sm font-bold'>
 								{position}{' '}
-								<span
-									className='text-gray-500'
-									style={{ fontSize: '12px' }}
-								>
+								<span className='text-gray-500' style={{ fontSize: '12px' }}>
 									({level})
 								</span>
 							</h3>
@@ -122,10 +109,7 @@ const Offer = ({
 					>
 						<h3 className='text-lg font-bold'>
 							{position}{' '}
-							<span
-								className='text-gray-500'
-								style={{ fontSize: '12px' }}
-							>
+							<span className='text-gray-500' style={{ fontSize: '12px' }}>
 								({level})
 							</span>
 						</h3>
@@ -142,12 +126,14 @@ const Offer = ({
 				)}
 
 				<div className='relative flex justify-center items-center'>
-					{!showTooltip && (<CiBookmark
-						className={`cursor-pointer text-xl font-black mx-2 ${
-							isOfferLiked ? 'text-red-500' : 'text-gray-500'
-						}`}
-						onClick={handleToggleLike}
-					/>)}
+					{!showTooltip && (
+						<CiBookmark
+							className={`cursor-pointer text-xl font-black mx-2 ${
+								isOfferLiked ? 'text-red-500' : 'text-gray-500'
+							}`}
+							onClick={handleToggleLike}
+						/>
+					)}
 					{showTooltip && (
 						<div
 							className=' text-center  bg-none text-black p-1 rounded'

@@ -1,4 +1,10 @@
 /* eslint-disable react/prop-types */
+import { Amplify, Auth } from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+
+
+
 import React from 'react'
 // create a context for the app state
 const AppStateContext = React.createContext()
@@ -15,7 +21,31 @@ const savedOffers = JSON.parse(
 	localStorage.getItem('initialLikedOffers') || '[]'
 )
 export const AppStateProvider = ({ children }) => {
+
+
+//AUTH AMPLIFY
+
+const [isAuthenticated, setIsAuthenticated] = React.useState(false); // Dodane
+
+const checkAuth = async () => {
+	try {
+	  await Auth.currentAuthenticatedUser();
+	  setIsAuthenticated(true);
+	} catch (err) {
+	  setIsAuthenticated(false);
+	}
+   };
+
+  React.useEffect(() => {
+	
+ 
+	checkAuth();
+   }, [isAuthenticated]); // Wywoływane tylko raz, przy pierwszym renderowaniu
+
+
 	const [offers, setOffers] = React.useState([])
+
+	
 
 	const [loading, setLoading] = React.useState(false)
 
@@ -73,7 +103,7 @@ export const AppStateProvider = ({ children }) => {
 		loading,
 		setLoading,
 		offers,
-		setOffers,
+		setOffers,isAuthenticated
 	}
 
 	return (

@@ -8,13 +8,11 @@ import { OfferDesktop } from '../Pages/OfferDesktop'
 import { ImSearch } from 'react-icons/im'
 
 const OffersList = () => {
-	const { loading, offers, filterOptions, setFilterOptions } =
-		useAppState()
+	const { loading, offers, filterOptions, setFilterOptions } = useAppState()
 
-	const [selectedOfferId, setSelectedOfferId] =
-		React.useState(null)
+	const [selectedOfferId, setSelectedOfferId] = React.useState(null)
 
-	const { filteredOffers, searchQuery } = filterOptions 
+	const { filteredOffers, searchQuery } = filterOptions
 	const location = useLocation()
 
 	// const offersToDisplay = searchQuery ? filteredOffers : offers
@@ -34,10 +32,7 @@ const OffersList = () => {
 	const showMoreOffers = () => {
 		const currentOffersLength = displayedOffers.length
 		const nextIndex = currentOffersLength + 15
-		const nextOffers = offersToDisplay.slice(
-			currentOffersLength,
-			nextIndex
-		)
+		const nextOffers = offersToDisplay.slice(currentOffersLength, nextIndex)
 		setDisplayedOffers([...displayedOffers, ...nextOffers])
 	}
 
@@ -84,15 +79,14 @@ const OffersList = () => {
 				) : (
 					'no offers '
 				)}
-				{!loading &&
-					offersToDisplay.length > displayedOffers.length && (
-						<button
-							onClick={showMoreOffers}
-							className='bg-blue-500 cursor-pointer  text-white px-4 py-2 mt-4 rounded flex m-auto'
-						>
-							Show more{' '}
-						</button>
-					)}
+				{!loading && offersToDisplay.length > displayedOffers.length && (
+					<button
+						onClick={showMoreOffers}
+						className='bg-blue-500 cursor-pointer  text-white px-4 py-2 mt-4 rounded flex m-auto'
+					>
+						Show more{' '}
+					</button>
+				)}
 			</section>
 
 			{/* DESKTOP */}
@@ -131,15 +125,14 @@ const OffersList = () => {
 					) : (
 						'no offers '
 					)}
-					{!loading &&
-						offersToDisplay.length > displayedOffers.length && (
-							<button
-								onClick={showMoreOffers}
-								className='bg-blue-500 cursor-pointer  text-white px-4 py-2 mt-4 rounded flex m-auto'
-							>
-								Show more{' '}
-							</button>
-						)}
+					{!loading && offersToDisplay.length > displayedOffers.length && (
+						<button
+							onClick={showMoreOffers}
+							className='bg-blue-500 cursor-pointer  text-white px-4 py-2 mt-4 rounded flex m-auto'
+						>
+							Show more{' '}
+						</button>
+					)}
 				</div>
 				<div className='lg:w-1/2 lg:h-70vh'>
 					{/* Wyświetlanie szczegółów wybranej oferty */}
