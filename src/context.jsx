@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
-import { Amplify, Auth } from 'aws-amplify';
-import awsconfig from './aws-exports';
-Amplify.configure(awsconfig);
-
-
+import { Amplify, Auth } from 'aws-amplify'
+import awsconfig from './aws-exports'
+Amplify.configure(awsconfig)
 
 import React from 'react'
 // create a context for the app state
@@ -21,31 +19,27 @@ const savedOffers = JSON.parse(
 	localStorage.getItem('initialLikedOffers') || '[]'
 )
 export const AppStateProvider = ({ children }) => {
+	//AUTH AMPLIFY
 
+	const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
-//AUTH AMPLIFY
+	// check authentication status
+	const checkAuth = async () => {
+	  try {
+	    await Auth.currentAuthenticatedUser();
+	    setIsAuthenticated(true);
 
-const [isAuthenticated, setIsAuthenticated] = React.useState(false); // Dodane
-
-const checkAuth = async () => {
-	try {
-	  await Auth.currentAuthenticatedUser();
-	  setIsAuthenticated(true);
-	} catch (err) {
-	  setIsAuthenticated(false);
-	}
-   };
-
-  React.useEffect(() => {
-	
- 
-	checkAuth();
-   }, [isAuthenticated]); // Wywoływane tylko raz, przy pierwszym renderowaniu
-
+	  } catch (error) {
+	    setIsAuthenticated(false);
+	  }
+	};
+   
+	// check authentication status on mount
+	React.useEffect(() => {
+	  checkAuth();
+	}, []);
 
 	const [offers, setOffers] = React.useState([])
-
-	
 
 	const [loading, setLoading] = React.useState(false)
 
@@ -53,8 +47,7 @@ const checkAuth = async () => {
 	const [darkMode, setDarkMode] = React.useState(false)
 
 	// state for liked offers
-	const [likedOffers, setLikedOffers] =
-		React.useState(savedOffers)
+	const [likedOffers, setLikedOffers] = React.useState(savedOffers)
 
 	// state for filter options
 	const [filterOptions, setFilterOptions] = React.useState({
@@ -73,23 +66,17 @@ const checkAuth = async () => {
 			const data = await response.json()
 			setOffers(data)
 			setLoading(false)
-
 		} catch (err) {
 			setLoading(false)
 		}
 	}
 	React.useEffect(() => {
 		fetchJobOffers()
-
 	}, [])
 
 	React.useEffect(() => {
 		// change likedOffers to initialLikedOffers
-		localStorage.setItem(
-			'initialLikedOffers',
-			JSON.stringify(likedOffers)
-		)
-
+		localStorage.setItem('initialLikedOffers', JSON.stringify(likedOffers))
 	}, [likedOffers])
 
 	// value to pass to the context
@@ -103,7 +90,9 @@ const checkAuth = async () => {
 		loading,
 		setLoading,
 		offers,
-		setOffers,isAuthenticated
+		setOffers,
+		isAuthenticated,
+		setIsAuthenticated,checkAuth 
 	}
 
 	return (

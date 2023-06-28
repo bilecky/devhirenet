@@ -5,8 +5,7 @@ import { withAuthenticator } from '@aws-amplify/ui-react'
 import { useAppState } from '../../context'
 import Offer from '../Main/Offer'
 import Wrapper from '../../wrapper'
-import { Amplify, Auth } from 'aws-amplify';
-
+import { Amplify, Auth } from 'aws-amplify'
 
 const Favorites = () => {
 	const { likedOffers, isAuthenticated } = useAppState()
@@ -40,10 +39,14 @@ const Favorites = () => {
 					/>
 				</Link>
 				<h2 className='text-2xl font-bold text-center py-8'>
-					Hello <span className='uppercase text-blue-500'>{username}</span>, you have <span className='text-blue-500'>{likedOffers && likedOffers.length}</span> saved offers:
+					Hello <span className='uppercase text-blue-500'>{username}</span>,
+					you have{' '}
+					<span className='text-blue-500'>
+						{likedOffers && likedOffers.length}
+					</span>{' '}
+					saved offers:
 				</h2>
 				<div className='flex-col m-auto lg:w-2/3'>
-					
 					{likedOffers.map(favOffer => (
 						<Offer key={favOffer.id} {...favOffer} />
 					))}
@@ -53,4 +56,4 @@ const Favorites = () => {
 	)
 }
 
-export default withAuthenticator(Favorites)
+export default Favorites

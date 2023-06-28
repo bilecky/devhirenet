@@ -9,7 +9,7 @@ import { BiSolidUser } from 'react-icons/bi';
 import { Auth } from 'aws-amplify';
 
 const Navbar = () => {
-  const { darkMode, toggleDarkMode, likedOffers, isAuthenticated } =
+  const { darkMode, toggleDarkMode, likedOffers, isAuthenticated, setIsAuthenticated } =
     useAppState();
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,26 +26,20 @@ const Navbar = () => {
   const handleSignOut = async () => {
 	try {
 	  await Auth.signOut();
-	  navigate('/');
+	  setIsAuthenticated(false);
+	  navigate('/'); // Nawigacja do strony głównej po wylogowaniu
 	} catch (error) {
 	  console.log('Błąd wylogowania:', error);
 	}
    };
-
   const toggleUserMenu = () => {
     setShowUserMenu(!showUserMenu);
-   
   };
-
-  React.useEffect(() => {
-	setShowUserMenu(false);
-   }, [isAuthenticated]);
 
   const handleFavoritesClick = () => {
     if (!isAuthenticated) {
       setShowLoginMessage(true);
       setTimeout(() => {
-
         setShowLoginMessage(false);
         navigate('/');
       }, 2000);
@@ -82,20 +76,23 @@ const Navbar = () => {
               onClick={handleFavoritesClick}
             >
               <FiStar size={24} />
-            {isAuthenticated &&  <span className="ml-2 text-lg">
-                {likedOffers && likedOffers.length}
-              </span>}
+              {isAuthenticated && (
+                <span className="ml-2 text-lg">{likedOffers && likedOffers.length}</span>
+              )}
             </Link>
             <div className="relative">
               <button className="flex items-center" onClick={toggleUserMenu}>
                 <BiSolidUser size={24} />
               </button>
               {showUserMenu && (
-                <div className=" absolute top-10 right-0 bg-white  shadow-md p-2">
+                <div className="absolute top-10 right-0 bg-white shadow-md p-2">
                   {isAuthenticated ? (
                     <button
                       className="block w-full text-left text-gray-800 py-2 px-4 hover:bg-slate-200"
-                      onClick={handleSignOut}
+                      onClick={() => {
+                        handleSignOut();
+                        setShowUserMenu(false);
+                      }}
                     >
                       Wyloguj się
                     </button>
@@ -103,6 +100,7 @@ const Navbar = () => {
                     <Link
                       to="/login"
                       className="block w-full text-left text-gray-800 py-2 px-4 hover:bg-slate-200"
+                      onClick={() => setShowUserMenu(false)}
                     >
                       Zaloguj się
                     </Link>
