@@ -12,7 +12,7 @@ import { AiFillInfoCircle } from 'react-icons/ai'
 const Navbar = () => {
 	const {
 		darkMode,
-		toggleDarkMode,
+		setDarkMode,
 		likedOffers,
 		isAuthenticated,
 		setIsAuthenticated,
@@ -29,6 +29,10 @@ const Navbar = () => {
 	const isLoginPage = location.pathname.includes('login')
 
 	const shouldRenderHandler = isFavoritesPage || isDetailsPage || isLoginPage
+
+	const handleDarkModeToggle = () => {
+		setDarkMode(!darkMode)
+	}
 
 	const handleSignOut = async () => {
 		try {
@@ -73,8 +77,10 @@ const Navbar = () => {
 
 					<div className='flex items-center text-gray-50'>
 						<button
-							className='mr-6 text-yellow-500 focus:outline-none'
-							onClick={toggleDarkMode}
+							className={`mr-6 focus:outline-none ${
+								darkMode ? 'text-gray-300' : 'text-yellow-500'
+							}`}
+							onClick={handleDarkModeToggle}
 						>
 							<FiMoon size={24} />
 						</button>
@@ -96,7 +102,7 @@ const Navbar = () => {
 								)}
 							</button>
 							{showUserMenu && (
-								<div className='flex  justify-center text-center z-50 w-40 absolute top-10 right-0 bg-white shadow-md p-2'>
+								<div className='flex justify-center text-center z-50 w-40 absolute top-10 right-0 bg-white shadow-md p-2'>
 									{isAuthenticated ? (
 										<button
 											className='block w-full text-center text-gray-800 py-2 px-4 hover:bg-slate-200'
@@ -123,14 +129,19 @@ const Navbar = () => {
 				</header>
 			</Wrapper>
 			{showLoginMessage && (
-			<div className='fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-75 text-white z-50'>
-      <div className='bg-white rounded-md p-6'>
-        <AiFillInfoCircle size={48} className='text-blue-500 mx-auto mb-4' />
-        <p className='text-center text-black'>
-          Only logged-in users can view and add jobs to favourites.
-        </p>
-      </div>
-    </div>
+				<div
+					className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-80 text-white z-50 `}
+				>
+					<div className='bg-white rounded-md p-6'>
+						<AiFillInfoCircle
+							size={48}
+							className='text-blue-500 mx-auto mb-4'
+						/>
+						<p className='text-center text-black'>
+							Only logged-in users can view and add jobs to favourites.
+						</p>
+					</div>
+				</div>
 			)}
 			{!shouldRenderHandler && <Search />}
 		</div>

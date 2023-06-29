@@ -24,6 +24,7 @@ export const OfferDetails = () => {
 	const [loading, setLoading] = useState(false);
 	const [offers, setOffers] = useState([]);
 	const offer = offers.find((offer) => offer.id.toString() === id);
+	const { darkMode } = useAppState(); // Dodany hook darkMode
 
 	const fetchJobOffers = async () => {
 		setLoading(true);
@@ -68,11 +69,13 @@ export const OfferDetails = () => {
 	}
 
 	return (
-		<Wrapper>
-			<div className='bg-slate-50 shadow-lg rounded-lg p-6  relative'>
+		<Wrapper darkMode={darkMode}> {/* Dodana obsługa darkMode w Wrapper */}
+					<div className={`absolute top-0 left-0 w-full h-full z-[-10] ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}></div>
+
+			<div className={`bg-${darkMode ? 'gray-800' : 'slate-50'} shadow-lg rounded-lg p-6  relative`}>
 				<Link
 					to='/'
-					className='absolute top-7 right-7 icon text-gray-50 font-semibold bg-blue-500 rounded-full p-2'
+					className={`absolute top-7 right-7 icon ${darkMode ? 'text-gray-50' : 'text-gray-50'} font-semibold bg-blue-500 rounded-full p-2`}
 				>
 					<FiArrowLeft size={28} />
 				</Link>
@@ -83,28 +86,28 @@ export const OfferDetails = () => {
 						className='w-10 h-10 rounded-full mr-3'
 					/>
 					<div>
-						<h2 className='text-xl font-bold'>
+						<h2 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
 							{offer.position}
 						</h2>
 						<p className='text-gray-500'>{offer.company}</p>
 					</div>
 				</div>
-				<p className='text-sm text-gray-700 mb-4'>
+				<p className={`text-sm ${darkMode ? 'text-white' : 'text-gray-700'} mb-4`}>
 					{' '}
 					<span className='font-bold'>Level: </span>
 					{offer.level}
 				</p>
-				<p className='text-sm text-gray-700 mb-4'>
+				<p className={`text-sm ${darkMode ? 'text-white' : 'text-gray-700'} mb-4`}>
 					{' '}
 					<span className='font-bold'>Description: </span>
 					{offer.description}
 				</p>
-				<p className='text-sm text-gray-700 mb-4'>
+				<p className={`text-sm ${darkMode ? 'text-white' : 'text-gray-700'} mb-4`}>
 					{' '}
 					<span className='font-bold'>Responsibilities: </span>
 					{offer.responsibilities}
 				</p>
-				<div className='text-sm text-gray-700 mb-4'>
+				<div className={`text-sm ${darkMode ? 'text-white' : 'text-gray-700'} mb-4`}>
 					{' '}
 					<span className='font-bold'>
 						Technologies:
@@ -123,7 +126,7 @@ export const OfferDetails = () => {
 						</ul>{' '}
 					</span>
 				</div>
-				<div className='text-sm text-gray-700 mb-4'>
+				<div className={`text-sm ${darkMode ? 'text-white' : 'text-gray-700'} mb-4`}>
 					{' '}
 					<span className='font-bold'>
 						Benefits:
@@ -142,15 +145,15 @@ export const OfferDetails = () => {
 						</ul>{' '}
 					</span>
 				</div>
-				<p className='text-sm text-gray-700 mb-4'>
+				<p className={`text-sm ${darkMode ? 'text-white' : 'text-gray-700'} mb-4`}>
 					<span className='font-bold'>Salary Range:</span>{' '}
 					{offer.salaryRange}
 				</p>
-				<p className='text-sm text-gray-700 mb-4'>
+				<p className={`text-sm ${darkMode ? 'text-white' : 'text-gray-700'} mb-4`}>
 					<span className='font-bold'>Location:</span>{' '}
 					{offer.location}
 				</p>
-				<button className='bg-blue-500 flex m-auto text-white py-2 px-10 mt-8 mb-6  '>
+				<button className={`bg-blue-500 flex m-auto text-white py-2 px-10 mt-8 mb-6 ${darkMode ? 'bg-blue-900' : ''}`}>
 					Apply
 				</button>
 			</div>
