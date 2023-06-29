@@ -5,29 +5,15 @@ import { withAuthenticator } from '@aws-amplify/ui-react'
 import { useAppState } from '../../context'
 import Offer from '../Main/Offer'
 import Wrapper from '../../wrapper'
-import { Amplify, Auth } from 'aws-amplify'
+import { Amplify, Auth } from 'aws-amplify';
+
 
 const Favorites = () => {
-	const { likedOffers, isAuthenticated } = useAppState()
+	const { likedOffers, isAuthenticated, authUserName } = useAppState()
 	if (!isAuthenticated) {
 		return null
 	}
 
-	const [username, setUsername] = React.useState(null)
-	console.log(username)
-	React.useEffect(() => {
-		const fetchUser = async () => {
-			try {
-				const user = await Auth.currentAuthenticatedUser()
-
-				console.log(user)
-				setUsername(user.username)
-			} catch (error) {
-				console.log(error)
-			}
-		}
-		fetchUser()
-	}, [])
 
 	return (
 		<Wrapper>
@@ -39,14 +25,10 @@ const Favorites = () => {
 					/>
 				</Link>
 				<h2 className='text-2xl font-bold text-center py-8'>
-					Hello <span className='uppercase text-blue-500'>{username}</span>,
-					you have{' '}
-					<span className='text-blue-500'>
-						{likedOffers && likedOffers.length}
-					</span>{' '}
-					saved offers:
+					Hello <span className='uppercase text-blue-500'>{authUserName}</span>, you have <span className='text-blue-500'>{likedOffers && likedOffers.length}</span> {`${likedOffers.length === 1 ? 'saved offer' : 'saved offers'}`}:
 				</h2>
 				<div className='flex-col m-auto lg:w-2/3'>
+					
 					{likedOffers.map(favOffer => (
 						<Offer key={favOffer.id} {...favOffer} />
 					))}

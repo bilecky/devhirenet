@@ -21,23 +21,26 @@ const savedOffers = JSON.parse(
 export const AppStateProvider = ({ children }) => {
 	//AUTH AMPLIFY
 
-	const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+	const [isAuthenticated, setIsAuthenticated] = React.useState(false)
+	const [authUserName, setauthenticatedUser] = React.useState('')
 
 	// check authentication status
 	const checkAuth = async () => {
-	  try {
-	    await Auth.currentAuthenticatedUser();
-	    setIsAuthenticated(true);
+		try {
+			await Auth.currentAuthenticatedUser()
+			setIsAuthenticated(true)
+			const user = await Auth.currentAuthenticatedUser()
 
-	  } catch (error) {
-	    setIsAuthenticated(false);
-	  }
-	};
-   
+				setauthenticatedUser(user.username)
+		} catch (error) {
+			setIsAuthenticated(false)
+		}
+	}
+
 	// check authentication status on mount
 	React.useEffect(() => {
-	  checkAuth();
-	}, []);
+		checkAuth()
+	}, [])
 
 	const [offers, setOffers] = React.useState([])
 
@@ -92,7 +95,10 @@ export const AppStateProvider = ({ children }) => {
 		offers,
 		setOffers,
 		isAuthenticated,
-		setIsAuthenticated,checkAuth 
+		setIsAuthenticated,
+		checkAuth,
+		authUserName,
+		setauthenticatedUser,
 	}
 
 	return (
