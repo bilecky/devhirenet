@@ -69,7 +69,7 @@ const Navbar = () => {
 					<Link to='/'>
 						<div className='lg:text-4xl flex items-center text-gray-50'>
 							<ImBlog />
-							<span className='ml-3 text-2xl lg:text-4xl font-oswald'>
+							<span className='ml-2 text-2xl lg:text-4xl font-oswald'>
 								DevHireNet
 							</span>
 						</div>
@@ -77,7 +77,7 @@ const Navbar = () => {
 
 					<div className='flex items-center text-gray-50'>
 						<button
-							className={`mr-6 focus:outline-none ${
+							className={`mr-2 focus:outline-none ${
 								darkMode ? 'text-gray-300' : 'text-yellow-500'
 							}`}
 							onClick={handleDarkModeToggle}
@@ -86,7 +86,7 @@ const Navbar = () => {
 						</button>
 						<Link
 							to='/favorites'
-							className='flex items-center mr-6'
+							className='flex items-center mr-2'
 							onClick={handleFavoritesClick}
 						>
 							<FiStar size={24} />
@@ -98,7 +98,7 @@ const Navbar = () => {
 							<button className='flex items-center' onClick={toggleUserMenu}>
 								<BiSolidUser size={24} />
 								{isAuthenticated && (
-									<span className='ml-2'>{authUserName}</span>
+									<span className='ml-1'>{authUserName.length > 7 ? '' : authUserName}</span>
 								)}
 							</button>
 							{showUserMenu && (

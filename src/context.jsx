@@ -3,8 +3,9 @@ import { Amplify, Auth } from 'aws-amplify'
 import awsconfig from './aws-exports'
 Amplify.configure(awsconfig)
 
-import React from 'react'
+import React, { useContext } from 'react'
 // create a context for the app state
+
 const AppStateContext = React.createContext()
 
 // create a provider component to wrap the app
@@ -31,7 +32,7 @@ export const AppStateProvider = ({ children }) => {
 			setIsAuthenticated(true)
 			const user = await Auth.currentAuthenticatedUser()
 
-				setauthenticatedUser(user.username)
+			setauthenticatedUser(user.username)
 		} catch (error) {
 			setIsAuthenticated(false)
 		}
@@ -61,21 +62,22 @@ export const AppStateProvider = ({ children }) => {
 	})
 
 	const fetchJobOffers = async () => {
-		setLoading(true)
+		setLoading(true);
 		try {
-			const response = await fetch(
-				'https://76bhjefw83.execute-api.eu-west-1.amazonaws.com/DevHireNet_FetchOffers'
-			)
-			const data = await response.json()
-			setOffers(data)
-			setLoading(false)
+		  const response = await fetch(
+		    'https://76bhjefw83.execute-api.eu-west-1.amazonaws.com/DevHireNet_FetchOffers'
+		  );
+		  const data = await response.json();
+		  setOffers(data);
+		  setFilterOptions((prev) => ({ ...prev, filteredOffers: data }));
+		  setLoading(false);
 		} catch (err) {
-			setLoading(false)
+		  setLoading(false);
 		}
-	}
-	React.useEffect(() => {
-		fetchJobOffers()
-	}, [])
+	   };
+	   React.useEffect(() => {
+		fetchJobOffers();
+	   }, []);
 
 	React.useEffect(() => {
 		// change likedOffers to initialLikedOffers

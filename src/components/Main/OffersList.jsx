@@ -30,8 +30,11 @@ const OffersList = () => {
     setDisplayedOffers([...displayedOffers, ...nextOffers]);
   };
 
+
+  console.log(offersToDisplay);
+
   React.useEffect(() => {
-    if (location.pathname === '/') {
+    if (location.pathname === '/devhirenet') {
       setDisplayedOffers(offers.slice(0, 10));
       setFilterOptions((prev) => ({ ...prev, searchQuery: '' }));
     }

@@ -22,9 +22,9 @@ import Favorites from './components/Pages/Favorites'
 import { OfferDetails } from './components/Pages/OfferDetails'
 import { useAppState } from './context'
 import Login from './components/Pages/Login'
-const { darkMode } = useAppState()
 
 const App = () => {
+	const { darkMode } = useAppState()
 	return (
 		<div className={darkMode ? 'bg-gray-900' : 'bg-white'}>
 			<Router>
@@ -37,6 +37,7 @@ const App = () => {
 						<Route path='/offer/:id' element={<OfferDetails />} />
 						<Route path='/favorites' element={<Favorites />} />
 						<Route path='/login' element={<Login />} />
+						<Route path='/*' element={<OffersList />} />
 					</Routes>
 				</div>
 			</Router>
