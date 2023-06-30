@@ -1,7 +1,7 @@
 # DevHireNet
 
 <p align="center">
-  <img src = "https://github.com/bilecky/devhirenet/assets/51762310/cb1b7952-e391-45d7-befd-24d11e8a54cc">
+  <img src = "https://github.com/bilecky/devhirenet/assets/51762310/3924af22-a84f-46b4-a66c-aa1cec520392">
 </p>
 
 DevHireNet is a job board for the IT industry, built using React, Tailwind CSS, React Router, and AWS (including Lambda and Amplify). A live demo version is available below.
