@@ -16,6 +16,7 @@ DevHireNet is a job board for the IT industry, built using React, Tailwind CSS, 
 - **Filtering:** Users can filter job offers by job level, company, and technologies.
 - **Favorites:** Users can add and remove job offers from their favorites. Notifications are displayed when an offer is added or removed, improving the user experience.
 - **Loading spinners:** Loading spinners are displayed while data is being retrieved, improving the user experience.
+-  **Local storage:** Data is always available thanks to local storage. Users only need to log in to access their data.
 - **Mobile-first approach and Responsive Design (RWD):** The project is built with a mobile-first approach, ensuring optimal user experience on various devices and screen sizes.
 
 ## Technologies
