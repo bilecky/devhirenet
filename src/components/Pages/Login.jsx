@@ -85,7 +85,7 @@ const Login = () => {
 							id='username'
 							value={username}
 							onChange={e => setUsername(e.target.value)}
-							className='w-full border p-2  text-blue-500'
+							className='w-full border border-gray-300 p-2 text-black '
 						/>
 					</div>
 					<div className='mb-4'>

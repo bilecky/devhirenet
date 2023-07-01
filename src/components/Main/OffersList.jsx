@@ -31,7 +31,6 @@ const OffersList = () => {
   };
 
 
-  console.log(offersToDisplay);
 
   React.useEffect(() => {
     if (location.pathname === '/devhirenet') {

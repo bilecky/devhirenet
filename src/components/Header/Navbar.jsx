@@ -98,7 +98,9 @@ const Navbar = () => {
 							<button className='flex items-center' onClick={toggleUserMenu}>
 								<BiSolidUser size={24} />
 								{isAuthenticated && (
-									<span className='ml-1'>{authUserName.length > 7 ? '' : authUserName}</span>
+									<span className='ml-1'>
+										{authUserName.length > 7 ? '' : authUserName}
+									</span>
 								)}
 							</button>
 							{showUserMenu && (
@@ -129,19 +131,19 @@ const Navbar = () => {
 				</header>
 			</Wrapper>
 			{showLoginMessage && (
-				<div
-					className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-80 text-white z-50 `}
-				>
-					<div className='bg-white rounded-md p-6'>
-						<AiFillInfoCircle
-							size={48}
-							className='text-blue-500 mx-auto mb-4'
-						/>
-						<p className='text-center text-black'>
-							Only logged-in users can view and add jobs to favourites.
-						</p>
+					<div
+						className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-80 text-white z-50 p-10`}
+					>
+						<div className='bg-white rounded-md p-6'>
+							<AiFillInfoCircle
+								size={48}
+								className='text-blue-500 mx-auto mb-4'
+							/>
+							<p className='text-center text-black'>
+								Only logged-in users can view and add jobs to favourites.
+							</p>
+						</div>
 					</div>
-				</div>
 			)}
 			{!shouldRenderHandler && <Search />}
 		</div>

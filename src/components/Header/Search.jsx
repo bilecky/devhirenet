@@ -159,7 +159,7 @@ const Search = () => {
 	}
 
 	return (
-		<div className='bg-gray-800 lg:mx-24 m-auto ' style={{ paddingBottom: 0 }}>
+		<div className='bg-gray-800 lg:mx-22 m-auto ' style={{ paddingBottom: 0 }}>
 			<Wrapper className=''>
 				<h2 className='  text-yellow-50 font-open text-2xl text-center py-5 font-semibold lg:text-4xl'>
 					Connecting talent. Empowering Careers. DevHireNet.
