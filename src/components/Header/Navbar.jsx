@@ -38,7 +38,7 @@ const Navbar = () => {
 		try {
 			await Auth.signOut()
 			setIsAuthenticated(false)
-			navigate('/')
+			navigate('/devhirenet')
 		} catch (error) {
 			console.log('Błąd wylogowania:', error)
 		}
@@ -53,7 +53,7 @@ const Navbar = () => {
 			setShowLoginMessage(true)
 			setTimeout(() => {
 				setShowLoginMessage(false)
-				navigate('/')
+				navigate('/devhirenet')
 			}, 2000)
 		}
 	}
@@ -66,7 +66,7 @@ const Navbar = () => {
 		>
 			<Wrapper>
 				<header className='flex items-center justify-between text-gray-900'>
-					<Link to='/'>
+					<Link to='/devhirenet'>
 						<div className='lg:text-4xl flex items-center text-gray-50'>
 							<ImBlog />
 							<span className='ml-2 text-2xl lg:text-4xl font-oswald'>
@@ -131,19 +131,19 @@ const Navbar = () => {
 				</header>
 			</Wrapper>
 			{showLoginMessage && (
-					<div
-						className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-80 text-white z-50 p-10`}
-					>
-						<div className='bg-white rounded-md p-6'>
-							<AiFillInfoCircle
-								size={48}
-								className='text-blue-500 mx-auto mb-4'
-							/>
-							<p className='text-center text-black'>
-								Only logged-in users can view and add jobs to favourites.
-							</p>
-						</div>
+				<div
+					className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-80 text-white z-50 p-10`}
+				>
+					<div className='bg-white rounded-md p-6'>
+						<AiFillInfoCircle
+							size={48}
+							className='text-blue-500 mx-auto mb-4'
+						/>
+						<p className='text-center text-black'>
+							Only logged-in users can view and add jobs to favourites.
+						</p>
 					</div>
+				</div>
 			)}
 			{!shouldRenderHandler && <Search />}
 		</div>
