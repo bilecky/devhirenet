@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { CiBookmark } from 'react-icons/ci'
 import { MdLocationOn } from 'react-icons/md'
 import { useAppState } from '../../context'

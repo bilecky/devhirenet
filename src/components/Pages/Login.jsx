@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Amplify, Auth } from 'aws-amplify'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAppState } from '../../context'
 
 import awsExports from '../../aws-exports'
@@ -8,12 +8,12 @@ import awsExports from '../../aws-exports'
 Amplify.configure(awsExports)
 
 const Login = () => {
-	const [username, setUsername] = React.useState('')
-	const [password, setPassword] = React.useState('')
-	const [email, setEmail] = React.useState('')
-	const [code, setCode] = React.useState('')
-	const [error, setError] = React.useState('')
-	const [formType, setFormType] = React.useState('signIn')
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
+	const [email, setEmail] = useState('')
+	const [code, setCode] = useState('')
+	const [error, setError] = useState('')
+	const [formType, setFormType] = useState('signIn')
 	const navigate = useNavigate()
 	const { checkAuth, darkMode } = useAppState()
 
@@ -67,9 +67,7 @@ const Login = () => {
 				darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'
 			}`}
 		>
-			<h1
-				className={`text-3xl mb-4 ${darkMode ? 'text-white' : 'text-black'}`}
-			>
+			<h1 className={`text-3xl mb-4 ${darkMode ? 'text-white' : 'text-black'}`}>
 				{formType === 'signIn' && 'Sign In'}
 				{formType === 'signUp' && 'Sign Up'}
 				{formType === 'confirmSignUp' && 'Confirm Sign Up'}
@@ -220,10 +218,7 @@ const Login = () => {
 			</button>
 			<p className='absolute bottom-5 font-medium'>
 				designed & developed by{' '}
-				<a
-					className='text-blue-500 text-lg'
-					href='https://github.com/bilecky'
-				>
+				<a className='text-blue-500 text-lg' href='https://github.com/bilecky'>
 					{' '}
 					Paweł Bilski
 				</a>{' '}

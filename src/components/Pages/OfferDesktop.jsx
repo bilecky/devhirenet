@@ -8,8 +8,7 @@ export const OfferDesktop = props => {
 	const desktopId = props.offerId
 
 	const offer = offers.find(offer => offer.id === desktopId)
-	console.log(typeof desktopId)
-	console.log(typeof offer)
+
 
 	if (!offer) {
 		return <div>Offer not found.</div>

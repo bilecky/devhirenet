@@ -1,11 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowLeft } from 'react-icons/fi'
-import { withAuthenticator } from '@aws-amplify/ui-react'
 import { useAppState } from '../../context'
 import Offer from '../Main/Offer'
 import Wrapper from '../../wrapper'
-import { Amplify, Auth } from 'aws-amplify';
 
 
 const Favorites = () => {
