@@ -16,14 +16,12 @@ const Offer = ({
 	handleSelectDESKTOPOffer,
 	singleOffer,
 }) => {
-	const { likedOffers, setLikedOffers, darkMode } = useAppState()
+	const { likedOffers, setLikedOffers, darkMode, isAuthenticated } = useAppState()
 	const [showTooltip, setShowTooltip] = React.useState(false)
 
 	const getLocation = useLocation()
 
-	const isOfferLiked = likedOffers
-		? likedOffers.some(offer => offer.id === id)
-		: false
+	const isOfferLiked = likedOffers ? likedOffers.some(offer => offer.id === id) : false
 
 	const handleToggleLike = () => {
 		if (isOfferLiked) {
@@ -75,9 +73,7 @@ const Offer = ({
 								</span>
 							</h3>
 						</Link>
-						<p className={`text-md ${darkMode && 'text-gray-400'}`}>
-							{company}
-						</p>
+						<p className={`text-md ${darkMode && 'text-gray-400'}`}>{company}</p>
 						<p className='text-xs flex items-center my-1'>
 							<AiFillDollarCircle className='mr-1' />
 							{salaryRange}
@@ -103,9 +99,7 @@ const Offer = ({
 								</span>
 							</h3>
 						</Link>
-						<p className={`text-md ${darkMode && 'text-gray-400'}`}>
-							{company}
-						</p>
+						<p className={`text-md ${darkMode && 'text-gray-400'}`}>{company}</p>
 						<p className='text-xs flex items-center my-1'>
 							<AiFillDollarCircle className='mr-1' />
 							{salaryRange}
@@ -116,10 +110,7 @@ const Offer = ({
 						</p>
 					</div>
 				) : (
-					<div
-						onClick={handleClick}
-						className='hidden lg:block cursor-pointer'
-					>
+					<div onClick={handleClick} className='hidden lg:block cursor-pointer'>
 						<h3 className={`text-lg font-bold ${darkMode && 'text-white'}`}>
 							{position}{' '}
 							<span
@@ -129,9 +120,7 @@ const Offer = ({
 								({level})
 							</span>
 						</h3>
-						<p className={`text-md ${darkMode && 'text-gray-400'}`}>
-							{company}
-						</p>
+						<p className={`text-md ${darkMode && 'text-gray-400'}`}>{company}</p>
 						<p className='text-xs flex items-center my-1'>
 							<AiFillDollarCircle className='mr-1' />
 							{salaryRange}
@@ -142,27 +131,28 @@ const Offer = ({
 						</p>
 					</div>
 				)}
-
-				<div className='relative flex justify-center items-center'>
-					{!showTooltip && (
-						<CiBookmark
-							className={`cursor-pointer text-xl font-black mx-2 ${
-								isOfferLiked ? 'text-red-500' : 'text-gray-500'
-							} ${darkMode && 'text-white'}`}
-							onClick={handleToggleLike}
-						/>
-					)}
-					{showTooltip && (
-						<div
-							className={`text-center bg-none ${
-								darkMode ? 'text-white' : 'text-black'
-							} p-1 rounded`}
-							style={{ fontSize: '12px' }}
-						>
-							{showTooltip}
-						</div>
-					)}
-				</div>
+				{isAuthenticated && (
+					<div className='relative flex justify-center items-center'>
+						{!showTooltip && (
+							<CiBookmark
+								className={`cursor-pointer text-xl font-black mx-2 ${
+									isOfferLiked ? 'text-red-500' : 'text-gray-500'
+								} ${darkMode && 'text-white'}`}
+								onClick={handleToggleLike}
+							/>
+						)}
+						{showTooltip && (
+							<div
+								className={`text-center bg-none ${
+									darkMode ? 'text-white' : 'text-black'
+								} p-1 rounded`}
+								style={{ fontSize: '12px' }}
+							>
+								{showTooltip}
+							</div>
+						)}
+					</div>
+				)}
 			</div>
 		</div>
 	)

@@ -40,7 +40,7 @@ const Navbar = () => {
 			setIsAuthenticated(false)
 			navigate('/devhirenet')
 		} catch (error) {
-			console.log('Błąd wylogowania:', error)
+			console.log('LOGOUT PROBLEM:', error)
 		}
 	}
 
