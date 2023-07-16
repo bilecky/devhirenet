@@ -24,14 +24,11 @@ const Offer = ({
 
 	const isOfferLiked = likedOffers ? likedOffers.some(offer => offer.id === id) : false
 
-	const date = new Date() // Tworzy obiekt daty z bieżącą datą i czasem
-	const milliseconds = date.getTime()
-
 	const handleToggleLike = async () => {
 		const selectedOffer = {
 			favorites: id.toString(), // Wartość klucza głównego 'favorites'
 			userId: authUserName,
-			id: milliseconds.toFixed(4),
+			id,
 			company,
 			logo,
 			position,
