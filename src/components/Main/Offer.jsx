@@ -16,28 +16,83 @@ const Offer = ({
 	handleSelectDESKTOPOffer,
 	singleOffer,
 }) => {
-	const { likedOffers, setLikedOffers, darkMode, isAuthenticated } = useAppState()
+	const { likedOffers, setLikedOffers, darkMode, isAuthenticated, authUserName } =
+		useAppState()
 	const [showTooltip, setShowTooltip] = React.useState(false)
 
 	const getLocation = useLocation()
 
 	const isOfferLiked = likedOffers ? likedOffers.some(offer => offer.id === id) : false
 
-	const handleToggleLike = () => {
+	const date = new Date() // Tworzy obiekt daty z bieżącą datą i czasem
+	const milliseconds = date.getTime()
+
+	const handleToggleLike = async () => {
+		const selectedOffer = {
+			favorites: id.toString(), // Wartość klucza głównego 'favorites'
+			userId: authUserName,
+			id: milliseconds.toFixed(4),
+			company,
+			logo,
+			position,
+			level,
+			salaryRange,
+			location,
+		}
+
+		const deleteObject = async () => {
+			try {
+				const response = await fetch(
+					'https://q4xvbr9624.execute-api.eu-west-1.amazonaws.com/xd',
+					{
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(selectedOffer), // Przekazanie klucza favorites jako ciało żądania
+					}
+				)
+
+				if (response.ok) {
+					// Obsłuż sukces
+					console.log('Object deleted successfully')
+				} else {
+					// Obsłuż błąd
+					console.error('Error deleting object:', response.status)
+				}
+			} catch (error) {
+				console.error('Error deleting object:', error)
+			}
+		}
+
 		if (isOfferLiked) {
+			await deleteObject()
 			const updatedOffers = likedOffers.filter(offer => offer.id !== id)
 			setLikedOffers(updatedOffers)
 			setShowTooltip('Offer Deleted')
 		} else {
-			const selectedOffer = {
-				id,
-				company,
-				logo,
-				position,
-				level,
-				salaryRange,
-				location,
+			try {
+				console.log(selectedOffer)
+				const response = await fetch(
+					'https://q4xvbr9624.execute-api.eu-west-1.amazonaws.com/xd',
+					{
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(selectedOffer),
+					}
+				)
+
+				const data = await response.json()
+
+				console.log(data)
+				// Dodaj kod obsługujący odpowiedź z serwera
+			} catch (error) {
+				console.error(error)
+				// Dodaj kod obsługujący błąd
 			}
+
 			setLikedOffers([...likedOffers, selectedOffer])
 			setShowTooltip('Offer Added')
 		}
