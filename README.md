@@ -1,12 +1,20 @@
 # DevHireNet
 
 <p align="center">
-  <img src = "https://github.com/bilecky/devhirenet/assets/51762310/3924af22-a84f-46b4-a66c-aa1cec520392">
+
+   <a href="https://deviceframes.com/templates/iphone-13"> <img src = "https://github.com/bilecky/devhirenet/assets/51762310/f90cef92-5c8a-4d4e-bec6-322be47f31cd"></a>
+ 
 </p>
 
 DevHireNet is a job board for the IT industry, built using React, Tailwind CSS, React Router, and AWS (including Lambda and Amplify). A live demo version is available below.
 
  [LIVE DEMO](https://bilecky.github.io/devhirenet/)
+
+## Updates 
+
+> **Note**: **VERSION 1.1** -  this update was made on 16.07.2023
+
+DevHireNet has been updated to provide enhanced user data storage and **improved integration with the backend services**. With the latest version, each user now has their **job offers stored in a dedicated database, leveraging AWS Lambda functions (node.js powered), DynamoDB, and a REST API provided by AWS API Gateway**.
 
 ## Features
 
@@ -33,8 +41,7 @@ To get started with DevHireNet, follow these steps:
 
 1. Clone the repository to your local machine.
 2. Install the dependencies by running `npm install`.
-3. Start the development server by running `npm start`.
-4. Open your browser and navigate to `http://localhost:3000` to view the application.
+3. Start the development server by running `npm run dev`
 
 ## Contributing
 
