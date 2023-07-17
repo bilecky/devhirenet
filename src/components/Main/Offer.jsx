@@ -53,15 +53,15 @@ const Offer = ({
 						headers: {
 							'Content-Type': 'application/json',
 						},
-						body: JSON.stringify(selectedOffer), // Przekazanie klucza favorites jako ciało żądania
+						body: JSON.stringify(selectedOffer), 
 					}
 				)
 
 				if (response.ok) {
-					// Obsłuż sukces
-					console.log('Object deleted successfully')
+			
+					return
 				} else {
-					// Obsłuż błąd
+				
 					console.error('Error deleting object:', response.status)
 				}
 			} catch (error) {
@@ -76,7 +76,6 @@ const Offer = ({
 			setShowTooltip('Offer Deleted')
 		} else {
 			try {
-				console.log(selectedOffer)
 				const response = await fetch(
 					'https://q4xvbr9624.execute-api.eu-west-1.amazonaws.com/xd',
 					{
@@ -90,11 +89,10 @@ const Offer = ({
 
 				const data = await response.json()
 
-				console.log(data)
-				// Dodaj kod obsługujący odpowiedź z serwera
+
 			} catch (error) {
 				console.error(error)
-				// Dodaj kod obsługujący błąd
+			
 			}
 
 			setLikedOffers([...likedOffers, selectedOffer])
