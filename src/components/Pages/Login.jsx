@@ -22,7 +22,7 @@ const Login = () => {
 		try {
 			await Auth.signIn(username, password)
 			checkAuth()
-			navigate('/')
+			navigate('/devhirenet')
 		} catch (err) {
 			setError(err.message)
 		}
