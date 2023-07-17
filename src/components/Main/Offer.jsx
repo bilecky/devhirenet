@@ -16,8 +16,14 @@ const Offer = ({
 	handleSelectDESKTOPOffer,
 	singleOffer,
 }) => {
-	const { likedOffers, setLikedOffers, darkMode, isAuthenticated, authUserName } =
-		useAppState()
+	const {
+		likedOffers,
+		setLikedOffers,
+		darkMode,
+		isAuthenticated,
+		authUserName,
+		setLoadingLikedOffers,
+	} = useAppState()
 	const [showTooltip, setShowTooltip] = React.useState(false)
 
 	const getLocation = useLocation()
@@ -25,6 +31,7 @@ const Offer = ({
 	const isOfferLiked = likedOffers ? likedOffers.some(offer => offer.id === id) : false
 
 	const handleToggleLike = async () => {
+		setLoadingLikedOffers(true)
 		const selectedOffer = {
 			favorites: id.toString(), // Wartość klucza głównego 'favorites'
 			userId: authUserName,
@@ -94,6 +101,7 @@ const Offer = ({
 			setShowTooltip('Offer Added')
 		}
 		setTimeout(() => setShowTooltip(false), 700)
+		setLoadingLikedOffers(false)
 	}
 
 	const handleClick = () => {

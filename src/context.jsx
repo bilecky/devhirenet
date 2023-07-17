@@ -2,7 +2,7 @@ import { Amplify, Auth } from 'aws-amplify'
 import awsconfig from './aws-exports'
 Amplify.configure(awsconfig)
 
-import React, { useContext } from 'react'
+import React from 'react'
 
 const AppStateContext = React.createContext()
 
@@ -10,7 +10,6 @@ export const useAppState = () => {
 	return React.useContext(AppStateContext)
 }
 
-const savedOffers = JSON.parse(localStorage.getItem('initialLikedOffers') || '[]')
 export const AppStateProvider = ({ children }) => {
 	const [isAuthenticated, setIsAuthenticated] = React.useState(false)
 	const [authUserName, setauthenticatedUser] = React.useState('')
@@ -34,6 +33,7 @@ export const AppStateProvider = ({ children }) => {
 	const [offers, setOffers] = React.useState([])
 
 	const [loading, setLoading] = React.useState(false)
+	const [loadingLikedOffers, setLoadingLikedOffers] = React.useState(false)
 
 	const [darkMode, setDarkMode] = React.useState(false)
 
@@ -92,7 +92,6 @@ export const AppStateProvider = ({ children }) => {
 	}
 
 	React.useEffect(() => {
-		// localStorage.setItem('initialLikedOffers', JSON.stringify(likedOffers))
 		fetchLikedOffers()
 	}, [authUserName])
 
@@ -111,7 +110,7 @@ export const AppStateProvider = ({ children }) => {
 		setIsAuthenticated,
 		checkAuth,
 		authUserName,
-		setauthenticatedUser,
+		setauthenticatedUser,loadingLikedOffers, setLoadingLikedOffers
 	}
 
 	return <AppStateContext.Provider value={value}>{children}</AppStateContext.Provider>

@@ -8,6 +8,7 @@ import Search from './Search'
 import { BiSolidUser } from 'react-icons/bi'
 import { Auth } from 'aws-amplify'
 import { AiFillInfoCircle } from 'react-icons/ai'
+import { CirclesWithBar } from 'react-loader-spinner'
 
 const Navbar = () => {
 	const {
@@ -17,6 +18,7 @@ const Navbar = () => {
 		isAuthenticated,
 		setIsAuthenticated,
 		authUserName,
+		loadingLikedOffers, 
 	} = useAppState()
 	const location = useLocation()
 	const navigate = useNavigate()
@@ -69,9 +71,7 @@ const Navbar = () => {
 					<Link to='/devhirenet'>
 						<div className='lg:text-4xl flex items-center text-gray-50'>
 							<ImBlog />
-							<span className='ml-2 text-2xl lg:text-4xl font-oswald'>
-								DevHireNet
-							</span>
+							<span className='ml-2 text-2xl lg:text-4xl font-oswald'>DevHireNet</span>
 						</div>
 					</Link>
 
@@ -85,13 +85,32 @@ const Navbar = () => {
 							<FiMoon size={24} />
 						</button>
 						<Link
-							to='/favorites'
+							to='devhirenet/favorites'
 							className='flex items-center mr-2'
 							onClick={handleFavoritesClick}
 						>
 							<FiStar size={24} />
 							{isAuthenticated && (
-								<span className='ml-2 text-lg'>{likedOffers?.length}</span>
+								<span className='ml-2 text-lg'>
+									{loadingLikedOffers ? (
+										<CirclesWithBar
+											className='py-10'
+											height='22'
+											width='22'
+											wrapperStyle={{
+												justifyContent: 'center',
+											}}
+											wrapperClass=''
+											visible={true}
+											outerCircleColor='white'
+											innerCircleColor='white'
+											barColor='white'
+											ariaLabel='circles-with-bar-loading'
+										/>
+									) : (
+										likedOffers?.length
+									)}
+								</span>
 							)}
 						</Link>
 						<div className='relative'>
@@ -117,7 +136,7 @@ const Navbar = () => {
 										</button>
 									) : (
 										<Link
-											to='/login'
+											to='devhirenet/login'
 											className='block w-full text-center text-gray-800 py-2 px-4 hover:bg-slate-200'
 											onClick={() => setShowUserMenu(false)}
 										>
@@ -135,10 +154,7 @@ const Navbar = () => {
 					className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-80 text-white z-50 p-10`}
 				>
 					<div className='bg-white rounded-md p-6'>
-						<AiFillInfoCircle
-							size={48}
-							className='text-blue-500 mx-auto mb-4'
-						/>
+						<AiFillInfoCircle size={48} className='text-blue-500 mx-auto mb-4' />
 						<p className='text-center text-black'>
 							Only logged-in users can view and add jobs to favourites.
 						</p>

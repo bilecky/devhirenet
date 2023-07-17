@@ -3,17 +3,9 @@ import {
 	BrowserRouter as Router,
 	Route,
 	Routes,
-	Link,
-	Outlet,
-	useNavigate,
-	useLocation,
-	useParams,
-} from 'react-router-dom'
-import { RiArrowGoBackLine } from 'react-icons/ri'
 
-import { Amplify } from 'aws-amplify'
-import awsExports from './aws-exports'
-import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react'
+} from 'react-router-dom'
+
 import '@aws-amplify/ui-react/styles.css'
 
 import Navbar from './components/Header/Navbar'
@@ -35,9 +27,9 @@ const App = () => {
 						<Route path='/' element={<OffersList />} />
 
 						<Route path='/offer/:id' element={<OfferDetails />} />
-						<Route path='/favorites' element={<Favorites />} />
-						<Route path='/login' element={<Login />} />
-						<Route path='/*' element={<OffersList />} />
+						<Route path='devhirenet/favorites' element={<Favorites />} />
+						<Route path='devhirenet/login' element={<Login />} />
+						<Route path='devhirenet/*' element={<OffersList />} />
 					</Routes>
 				</div>
 			</Router>
