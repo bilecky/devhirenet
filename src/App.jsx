@@ -24,7 +24,7 @@ const App = () => {
 						<Route path='/devhirenet/offer/:id' element={<OfferDetails />} />
 						<Route path='/devhirenet/favorites' element={<Favorites />} />
 						<Route path='/devhirenet/login' element={<Login />} />
-						<Route path='/devhirenet/*' element={<OffersList />} />
+						<Route path='/*' element={<OffersList />} />
 					</Routes>
 				</div>
 			</Router>
