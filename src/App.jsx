@@ -27,9 +27,9 @@ const App = () => {
 						<Route path='/' element={<OffersList />} />
 
 						<Route path='/offer/:id' element={<OfferDetails />} />
-						<Route path='devhirenet/favorites' element={<Favorites />} />
-						<Route path='devhirenet/login' element={<Login />} />
-						<Route path='devhirenet/*' element={<OffersList />} />
+						<Route path='/favorites' element={<Favorites />} />
+						<Route path='/login' element={<Login />} />
+						<Route path='*' element={<OffersList />} />
 					</Routes>
 				</div>
 			</Router>
