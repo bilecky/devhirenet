@@ -18,7 +18,7 @@ const Favorites = () => {
 			<div className={`absolute top-0 left-0 w-full h-full z-[-10] ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}></div>
 
 			<div className={`relative ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} mt-14 lg:mt-0`}>
-				<Link to='/'>
+				<Link to='/devhirenet'>
 					<FiArrowLeft
 						size={38}
 						className='absolute -top-10 lg:top-3 left-0 icon text-gray-50 font-semibold bg-blue-500'
