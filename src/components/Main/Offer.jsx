@@ -120,7 +120,7 @@ const Offer = ({
 			<div className='flex items-center justify-between w-full'>
 				{!isFavoritesPage && (
 					<div className='block lg:hidden cursor-pointer'>
-						<Link to={`/offer/${id}`} key={id}>
+						<Link to={`/devhirenet/offer/${id}`} key={id}>
 							<h3 className={`text-sm font-bold ${darkMode && 'text-white'}`}>
 								{position}{' '}
 								<span
@@ -146,7 +146,7 @@ const Offer = ({
 				{/* DESKTOP */}
 				{isFavoritesPage ? (
 					<div className='block cursor-pointer'>
-						<Link to={`/offer/${id}`} key={id}>
+						<Link to={`/devhirenet/offer/${id}`} key={id}>
 							<h3 className={`text-sm font-bold ${darkMode && 'text-white'}`}>
 								{position}{' '}
 								<span
