@@ -2,11 +2,11 @@
 
 <p align="center">
 
-   <a href="https://deviceframes.com/templates/iphone-13"> <img src = "https://github.com/bilecky/devhirenet/assets/51762310/f90cef92-5c8a-4d4e-bec6-322be47f31cd"></a>
+   <a href="https://deviceframes.com/templates/iphone-13"> <img src = "https://github.com/bilecky/devhirenet/assets/51762310/85a544eb-a3a2-47e0-a598-d3f788a56aeb"></a>
  
 </p>
 
-DevHireNet is a job board for the IT industry, built using React, Tailwind CSS, React Router, and AWS (including Lambda and Amplify). A live demo version is available below.
+DevHireNet is a job board for the IT industry, built using React, Tailwind CSS, React Router and AWS (including Lambda, DynamoDB and Amplify). A live demo version is available below.
 
  [LIVE DEMO](https://bilecky.github.io/devhirenet/)
 
@@ -24,7 +24,7 @@ DevHireNet has been updated to provide enhanced user data storage and **improved
 - **Filtering:** Users can filter job offers by job level, company, and technologies.
 - **Favorites:** Users can add and remove job offers from their favorites. Notifications are displayed when an offer is added or removed, improving the user experience.
 - **Loading spinners:** Loading spinners are displayed while data is being retrieved, improving the user experience.
--  **Local storage:** Data is always available thanks to local storage. Users only need to log in to access their data.
+- ~~**Local storage:** Data is always available thanks to local storage. Users only need to log in to access their data.~~ (look at update)
 - **Mobile-first approach and Responsive Design (RWD):** The project is built with a mobile-first approach, ensuring optimal user experience on various devices and screen sizes.
 
 ## Technologies
@@ -33,7 +33,7 @@ This project was built using the following technologies:
 - React
 - Tailwind CSS
 - React Router
-- AWS (Lambda, Amplify, API Gateway)
+- AWS (Lambda, Amplify, API Gateway, DynamoDB)
 
 ## Getting Started
 
