@@ -2,11 +2,11 @@
 
 <p align="center">
 
-   <a href="https://deviceframes.com/templates/iphone-13"> <img src = "https://github.com/bilecky/devhirenet/assets/51762310/8119360c-505e-47dc-8b0d-e00359c10278"></a>
+   <a href="https://deviceframes.com/templates/iphone-13"> <img src = "https://github.com/bilecky/devhirenet/assets/51762310/85a544eb-a3a2-47e0-a598-d3f788a56aeb"></a>
  
 </p>
 
-DevHireNet is a job board for the IT industry, built using React, Tailwind CSS, React Router, and AWS (including Lambda and Amplify). A live demo version is available below.
+DevHireNet is a job board for the IT industry, built using React, Tailwind CSS, React Router and AWS (including Lambda, DynamoDB and Amplify). A live demo version is available below.
 
  [LIVE DEMO](https://bilecky.github.io/devhirenet/)
 
