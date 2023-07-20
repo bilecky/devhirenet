@@ -18,7 +18,7 @@ const Navbar = () => {
 		isAuthenticated,
 		setIsAuthenticated,
 		authUserName,
-		loadingLikedOffers, 
+		loadingLikedOffers,
 	} = useAppState()
 	const location = useLocation()
 	const navigate = useNavigate()
@@ -42,7 +42,7 @@ const Navbar = () => {
 			setIsAuthenticated(false)
 			navigate('/devhirenet')
 		} catch (error) {
-			console.log('LOGOUT PROBLEM:', error)
+			return
 		}
 	}
 

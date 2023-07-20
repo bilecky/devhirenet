@@ -53,19 +53,17 @@ const Offer = ({
 						headers: {
 							'Content-Type': 'application/json',
 						},
-						body: JSON.stringify(selectedOffer), 
+						body: JSON.stringify(selectedOffer),
 					}
 				)
 
 				if (response.ok) {
-			
 					return
 				} else {
-				
-					console.error('Error deleting object:', response.status)
+					return
 				}
 			} catch (error) {
-				console.error('Error deleting object:', error)
+				return
 			}
 		}
 
@@ -88,11 +86,8 @@ const Offer = ({
 				)
 
 				const data = await response.json()
-
-
 			} catch (error) {
-				console.error(error)
-			
+				return
 			}
 
 			setLikedOffers([...likedOffers, selectedOffer])
