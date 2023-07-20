@@ -2,7 +2,7 @@
 
 <p align="center">
 
-   <a href="https://deviceframes.com/templates/iphone-13"> <img src = "https://github.com/bilecky/devhirenet/assets/51762310/f90cef92-5c8a-4d4e-bec6-322be47f31cd"></a>
+   <a href="https://deviceframes.com/templates/iphone-13"> <img src = "https://github.com/bilecky/devhirenet/assets/51762310/8119360c-505e-47dc-8b0d-e00359c10278"></a>
  
 </p>
 
