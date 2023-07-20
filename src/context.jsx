@@ -84,10 +84,9 @@ export const AppStateProvider = ({ children }) => {
 			const data = await response.json()
 			const parsedData = JSON.parse(data.body) // Przekształć dane tekstowe na tablicę
 			const userLikedOffers = parsedData.filter(offer => offer.userId === authUserName)
-			console.log(userLikedOffers)
 			setLikedOffers(userLikedOffers)
 		} catch (error) {
-			console.error(error)
+			return
 		}
 	}
 
@@ -110,7 +109,9 @@ export const AppStateProvider = ({ children }) => {
 		setIsAuthenticated,
 		checkAuth,
 		authUserName,
-		setauthenticatedUser,loadingLikedOffers, setLoadingLikedOffers
+		setauthenticatedUser,
+		loadingLikedOffers,
+		setLoadingLikedOffers,
 	}
 
 	return <AppStateContext.Provider value={value}>{children}</AppStateContext.Provider>
