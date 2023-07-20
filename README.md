@@ -33,7 +33,7 @@ This project was built using the following technologies:
 - React
 - Tailwind CSS
 - React Router
-- AWS (Lambda, Amplify, API Gateway)
+- AWS (Lambda, Amplify, API Gateway, DynamoDB)
 
 ## Getting Started
 
