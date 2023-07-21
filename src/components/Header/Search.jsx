@@ -5,116 +5,102 @@ import Wrapper from '../../wrapper'
 import { Link, useLocation } from 'react-router-dom'
 
 const Search = () => {
-  const { setFilterOptions, offers, filterOptions, darkMode } = useAppState()
+	const { setFilterOptions, offers, filterOptions, darkMode } = useAppState()
 
-  const [showFilterModal, setShowFilterModal] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [inputPlaceholder, setInputPlaceholder] = useState('Search...')
+	const [showFilterModal, setShowFilterModal] = useState(false)
+	const [searchQuery, setSearchQuery] = useState('')
+	const [inputPlaceholder, setInputPlaceholder] = useState('Search...')
 
-  useEffect(() => {
-    applySearchQuery(searchQuery)
-  }, [filterOptions.level, filterOptions.technologies])
+	useEffect(() => {
+		applySearchQuery(searchQuery)
+	}, [filterOptions.level, filterOptions.technologies])
 
-  const location = useLocation()
+	const location = useLocation()
 
-  const isFavoritesPage = location.pathname.includes('favorites')
-  const isDetailsPage = location.pathname.includes('offer')
-  const isLoginPage = location.pathname.includes('profile')
-  const shouldRenderHandler = isFavoritesPage || isDetailsPage || isLoginPage
+	const isFavoritesPage = location.pathname.includes('favorites')
+	const isDetailsPage = location.pathname.includes('offer')
+	const isLoginPage = location.pathname.includes('profile')
+	const shouldRenderHandler = isFavoritesPage || isDetailsPage || isLoginPage
 
-  const handleTechnologiesSelectChange = event => {
-    const { value } = event.target
-    setFilterOptions(prevOptions => ({
-      ...prevOptions,
-      technologies: [value],
-    }))
-  }
-
-  const handleLevelSelectChange = event => {
-    const { value } = event.target
-    setFilterOptions(prevOptions => ({
-      ...prevOptions,
-      level: value,
-    }))
-  }
-
-  const handleFilterClick = () => {
-    setShowFilterModal(true)
-  }
-
-  const handleFilterModalClose = () => {
-    setShowFilterModal(false)
-  }
-
-  const handleFormSubmit = event => {
-    event.preventDefault()
-    applySearchQuery(searchQuery)
-  }
-
-  const handleSearchInputChange = event => {
-    setSearchQuery(event.target.value)
-    applySearchQuery(event.target.value)
-  }
-
-  const handleInputFocus = () => {
-    setInputPlaceholder('Enter position, location or company name')
-  }
-
-  const handleInputBlur = () => {
-    setInputPlaceholder('Search...')
-  }
-
-  const applySearchQuery = query => {
-	const { level, technologies } = filterOptions;
- 
-	let filteredByLevelAndTechnology;
- 
-	if (level === 'all' && technologies[0] === 'all') {
-	  filteredByLevelAndTechnology = offers;
-	} else if (level === 'all') {
-	  filteredByLevelAndTechnology = offers.filter(
-		 offer =>
-			technologies.some(technology =>
-			  offer.technologies
-				 .map(t => t.toLowerCase())
-				 .includes(technology.toLowerCase())
-			)
-	  );
-	} else if (technologies[0] === 'all') {
-	  filteredByLevelAndTechnology = offers.filter(
-		 offer => offer.level.toLowerCase() === level.toLowerCase()
-	  );
-	} else if (Array.isArray(technologies) && technologies.length > 0) {
-	  filteredByLevelAndTechnology = offers.filter(
-		 offer =>
-			offer.level.toLowerCase() === level.toLowerCase() &&
-			technologies.some(technology =>
-			  offer.technologies
-				 .map(t => t.toLowerCase())
-				 .includes(technology.toLowerCase())
-			)
-	  );
+	const handleTechnologiesSelectChange = event => {
+		const { value } = event.target
+		setFilterOptions(prevOptions => ({
+			...prevOptions,
+			technologies: [value],
+		}))
 	}
- 
-	// Filtrowanie po wpisanym zapytaniu (searchQuery)
-	const filteredBySearchQuery = filteredByLevelAndTechnology.filter(
-	  offer =>
-		 offer.position.toLowerCase().includes(query.toLowerCase()) ||
-		 offer.company.toLowerCase().includes(query.toLowerCase()) ||
-		 offer.location.toLowerCase().includes(query.toLowerCase())
-	);
- 
-	setFilterOptions(prevOptions => ({
-	  ...prevOptions,
-	  searchQuery: query,
-	  filteredOffers: filteredBySearchQuery,
-	}));
- };
+
+	const handleLevelSelectChange = event => {
+		const { value } = event.target
+		setFilterOptions(prevOptions => ({
+			...prevOptions,
+			level: value,
+		}))
+	}
+
+	const handleFilterClick = () => {
+		setShowFilterModal(true)
+	}
+
+	const handleFilterModalClose = () => {
+		setShowFilterModal(false)
+	}
+
+	const handleFormSubmit = event => {
+		event.preventDefault()
+		applySearchQuery(searchQuery)
+	}
+
+	const handleSearchInputChange = event => {
+		setSearchQuery(event.target.value)
+		applySearchQuery(event.target.value)
+	}
+
+	const handleInputFocus = () => {
+		setInputPlaceholder('Enter position, location or company name')
+	}
+
+	const handleInputBlur = () => {
+		setInputPlaceholder('Search...')
+	}
+
+	const applySearchQuery = query => {
+		const { level, technologies } = filterOptions;
+	 
+		let filteredByLevelAndTechnology = offers;
+	 
+		if (level !== 'all') {
+		  filteredByLevelAndTechnology = filteredByLevelAndTechnology.filter(
+			 offer => offer.level.toLowerCase() === level.toLowerCase()
+		  );
+		}
+	 
+		if (Array.isArray(technologies) && technologies.length > 0 && technologies[0] !== 'all') {
+		  filteredByLevelAndTechnology = filteredByLevelAndTechnology.filter(offer =>
+			 technologies.some(technology =>
+				offer.technologies.map(t => t.toLowerCase()).includes(technology.toLowerCase())
+			 )
+		  );
+		}
+	 
+		// Filtrowanie po wpisanym zapytaniu (searchQuery)
+		const filteredBySearchQuery = filteredByLevelAndTechnology.filter(
+		  offer =>
+			 offer.position.toLowerCase().includes(query.toLowerCase()) ||
+			 offer.company.toLowerCase().includes(query.toLowerCase()) ||
+			 offer.location.toLowerCase().includes(query.toLowerCase())
+		);
+	 
+		setFilterOptions(prevOptions => ({
+		  ...prevOptions,
+		  searchQuery: query,
+		  filteredOffers: filteredBySearchQuery,
+		}));
+	 };
+	 
+	 
 	return (
-		<div
-			className='bg-gray-800 lg:mx-22 m-auto '
-			style={{ paddingBottom: 0 }}
-		>
+		<div className='bg-gray-800 lg:mx-22 m-auto ' style={{ paddingBottom: 0 }}>
 			<Wrapper className=''>
 				<h2 className='  text-yellow-50 font-open text-2xl text-center py-5 font-semibold lg:text-4xl'>
 					Connecting talent. Empowering Careers. DevHireNet.
@@ -123,9 +109,7 @@ const Search = () => {
 					{!shouldRenderHandler && (
 						<form className='flex' onSubmit={handleFormSubmit}>
 							<div className='w-1/3 px-2'>
-								<label className='block mb-2 font-semibold text-white'>
-									Search:
-								</label>
+								<label className='block mb-2 font-semibold text-white'>Search:</label>
 								<div className='relative'>
 									<input
 										onFocus={handleInputFocus}
@@ -137,16 +121,11 @@ const Search = () => {
 										}`}
 										placeholder={inputPlaceholder}
 									/>
-									<FiSearch
-										className='absolute top-2 left-2 text-gray-400'
-										size={18}
-									/>
+									<FiSearch className='absolute top-2 left-2 text-gray-400' size={18} />
 								</div>
 							</div>
 							<div className='w-1/3 px-2'>
-								<label className='block mb-2 font-semibold text-white'>
-									Technology:
-								</label>
+								<label className='block mb-2 font-semibold text-white'>Technology:</label>
 								<select
 									value={filterOptions.technologies[0]}
 									onChange={handleTechnologiesSelectChange}
@@ -175,9 +154,7 @@ const Search = () => {
 								</select>
 							</div>
 							<div className='w-1/3 px-2'>
-								<label className='block mb-2 font-semibold text-white'>
-									Level:
-								</label>
+								<label className='block mb-2 font-semibold text-white'>Level:</label>
 								<select
 									value={filterOptions.level}
 									onChange={handleLevelSelectChange}
@@ -197,10 +174,7 @@ const Search = () => {
 
 				{!shouldRenderHandler && (
 					<div>
-						<form
-							className='relative lg:hidden  '
-							onSubmit={handleFormSubmit}
-						>
+						<form className='relative lg:hidden  ' onSubmit={handleFormSubmit}>
 							<input
 								onFocus={handleInputFocus}
 								onBlur={handleInputBlur}
@@ -211,10 +185,7 @@ const Search = () => {
 								}`}
 								placeholder={inputPlaceholder}
 							/>
-							<FiSearch
-								className='absolute top-2 left-2 text-gray-400'
-								size={18}
-							/>
+							<FiSearch className='absolute top-2 left-2 text-gray-400' size={18} />
 						</form>
 						<button
 							className={`lg:hidden w-full sm:w-2/3 flex m-auto items-center justify-center mt-4 p-2 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 ${
@@ -235,9 +206,7 @@ const Search = () => {
 						<div className='bg-white  p-10 w-2/3'>
 							<h2 className='text-xl font-bold mb-4'>Filters</h2>
 							<div className='mb-4'>
-								<label className='block mb-2 font-semibold'>
-									Technology:
-								</label>
+								<label className='block mb-2 font-semibold'>Technology:</label>
 								<select
 									value={filterOptions.technologies[0]}
 									onChange={handleTechnologiesSelectChange}
