@@ -5,139 +5,111 @@ import Wrapper from '../../wrapper'
 import { Link, useLocation } from 'react-router-dom'
 
 const Search = () => {
-	const { setFilterOptions, offers, filterOptions, darkMode } = useAppState()
+  const { setFilterOptions, offers, filterOptions, darkMode } = useAppState()
 
-	const [showFilterModal, setShowFilterModal] = useState(false)
-	const [searchQuery, setSearchQuery] = useState('')
-	const [inputPlaceholder, setInputPlaceholder] = useState('Search...')
+  const [showFilterModal, setShowFilterModal] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [inputPlaceholder, setInputPlaceholder] = useState('Search...')
 
-	useEffect(() => {
-		applySearchQuery(searchQuery)
-	}, [filterOptions.level, filterOptions.technologies])
+  useEffect(() => {
+    applySearchQuery(searchQuery)
+  }, [filterOptions.level, filterOptions.technologies])
 
-	const location = useLocation()
+  const location = useLocation()
 
-	const isFavoritesPage = location.pathname.includes('favorites')
-	const isDetailsPage = location.pathname.includes('offer')
-	const isLoginPage = location.pathname.includes('profile')
-	const shouldRenderHandler = isFavoritesPage || isDetailsPage || isLoginPage
+  const isFavoritesPage = location.pathname.includes('favorites')
+  const isDetailsPage = location.pathname.includes('offer')
+  const isLoginPage = location.pathname.includes('profile')
+  const shouldRenderHandler = isFavoritesPage || isDetailsPage || isLoginPage
 
-	const handleTechnologiesSelectChange = event => {
-		const { value } = event.target
-		setFilterOptions(prevOptions => ({
-			...prevOptions,
-			technologies: [value],
-		}))
-	}
+  const handleTechnologiesSelectChange = event => {
+    const { value } = event.target
+    setFilterOptions(prevOptions => ({
+      ...prevOptions,
+      technologies: [value],
+    }))
+  }
 
-	const handleLevelSelectChange = event => {
-		const { value } = event.target
-		setFilterOptions(prevOptions => ({
-			...prevOptions,
-			level: value,
-		}))
-	}
+  const handleLevelSelectChange = event => {
+    const { value } = event.target
+    setFilterOptions(prevOptions => ({
+      ...prevOptions,
+      level: value,
+    }))
+  }
 
-	const handleFilterClick = () => {
-		setShowFilterModal(true)
-	}
+  const handleFilterClick = () => {
+    setShowFilterModal(true)
+  }
 
-	const handleFilterModalClose = () => {
-		setShowFilterModal(false)
-	}
+  const handleFilterModalClose = () => {
+    setShowFilterModal(false)
+  }
 
-	const handleFormSubmit = event => {
-		event.preventDefault()
-		applySearchQuery(searchQuery)
-	}
+  const handleFormSubmit = event => {
+    event.preventDefault()
+    applySearchQuery(searchQuery)
+  }
 
-	const handleSearchInputChange = event => {
-		setSearchQuery(event.target.value)
-		applySearchQuery(event.target.value)
-	}
+  const handleSearchInputChange = event => {
+    setSearchQuery(event.target.value)
+    applySearchQuery(event.target.value)
+  }
 
-	const handleInputFocus = () => {
-		setInputPlaceholder('Enter position, location or company name')
-	}
+  const handleInputFocus = () => {
+    setInputPlaceholder('Enter position, location or company name')
+  }
 
-	const handleInputBlur = () => {
-		setInputPlaceholder('Search...')
-	}
-	const applySearchQuery = query => {
-		const { level, technologies } = filterOptions
+  const handleInputBlur = () => {
+    setInputPlaceholder('Search...')
+  }
 
-		if (query) {
-			const filteredOffers = offers.filter(
-				offer =>
-					offer.position.toLowerCase().includes(query.toLowerCase()) ||
-					offer.company.toLowerCase().includes(query.toLowerCase()) ||
-					offer.location.toLowerCase().includes(query.toLowerCase())
+  const applySearchQuery = query => {
+	const { level, technologies } = filterOptions;
+ 
+	let filteredByLevelAndTechnology;
+ 
+	if (level === 'all' && technologies[0] === 'all') {
+	  filteredByLevelAndTechnology = offers;
+	} else if (level === 'all') {
+	  filteredByLevelAndTechnology = offers.filter(
+		 offer =>
+			technologies.some(technology =>
+			  offer.technologies
+				 .map(t => t.toLowerCase())
+				 .includes(technology.toLowerCase())
 			)
-
-			let filteredByLevelAndTechnology
-
-			if (level === 'all') {
-				filteredByLevelAndTechnology = filteredOffers
-			} else {
-				filteredByLevelAndTechnology = filteredOffers.filter(
-					offer => offer.level.toLowerCase() === level.toLowerCase()
-				)
-			}
-
-			if (technologies[0] === 'all') {
-				filteredByLevelAndTechnology = filteredOffers
-			}
-
-			// Filtruj oferty na podstawie wybranych technologii
-			else if (Array.isArray(technologies) && technologies.length > 0) {
-				filteredByLevelAndTechnology = filteredByLevelAndTechnology.filter(
-					offer =>
-						technologies.some(technology =>
-							offer.technologies
-								.map(t => t.toLowerCase())
-								.includes(technology.toLowerCase())
-						)
-				)
-			}
-
-			setFilterOptions(prevOptions => ({
-				...prevOptions,
-				searchQuery: query,
-				filteredOffers: filteredByLevelAndTechnology,
-			}))
-		} else {
-			let filteredByLevelAndTechnology
-
-			if (level === 'all') {
-				filteredByLevelAndTechnology = offers
-			} else {
-				filteredByLevelAndTechnology = offers.filter(
-					offer => offer.level.toLowerCase() === level.toLowerCase()
-				)
-			}
-
-			// Filtruj oferty na podstawie wybranych technologii
-			if (technologies[0] === 'all') {
-				filteredByLevelAndTechnology = offers
-			} else if (Array.isArray(technologies) && technologies.length > 0) {
-				filteredByLevelAndTechnology = filteredByLevelAndTechnology.filter(
-					offer =>
-						technologies.some(technology =>
-							offer.technologies
-								.map(t => t.toLowerCase())
-								.includes(technology.toLowerCase())
-						)
-				)
-			}
-
-			setFilterOptions(prevOptions => ({
-				...prevOptions,
-				searchQuery: '',
-				filteredOffers: filteredByLevelAndTechnology,
-			}))
-		}
+	  );
+	} else if (technologies[0] === 'all') {
+	  filteredByLevelAndTechnology = offers.filter(
+		 offer => offer.level.toLowerCase() === level.toLowerCase()
+	  );
+	} else if (Array.isArray(technologies) && technologies.length > 0) {
+	  filteredByLevelAndTechnology = offers.filter(
+		 offer =>
+			offer.level.toLowerCase() === level.toLowerCase() &&
+			technologies.some(technology =>
+			  offer.technologies
+				 .map(t => t.toLowerCase())
+				 .includes(technology.toLowerCase())
+			)
+	  );
 	}
-
+ 
+	// Filtrowanie po wpisanym zapytaniu (searchQuery)
+	const filteredBySearchQuery = filteredByLevelAndTechnology.filter(
+	  offer =>
+		 offer.position.toLowerCase().includes(query.toLowerCase()) ||
+		 offer.company.toLowerCase().includes(query.toLowerCase()) ||
+		 offer.location.toLowerCase().includes(query.toLowerCase())
+	);
+ 
+	setFilterOptions(prevOptions => ({
+	  ...prevOptions,
+	  searchQuery: query,
+	  filteredOffers: filteredBySearchQuery,
+	}));
+ };
 	return (
 		<div
 			className='bg-gray-800 lg:mx-22 m-auto '
