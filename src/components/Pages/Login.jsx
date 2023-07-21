@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Amplify, Auth } from 'aws-amplify'
 import { useNavigate } from 'react-router-dom'
 import { useAppState } from '../../context'
