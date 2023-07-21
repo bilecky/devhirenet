@@ -15,22 +15,19 @@ const Login = () => {
 	const [error, setError] = useState('')
 	const [formType, setFormType] = useState('signIn')
 	const navigate = useNavigate()
-	const { checkAuth, darkMode } = useAppState()
-
+	const { checkAuth, darkMode, isAuthenticated } = useAppState()
 
 	const checkIfLoggedIn = async () => {
 		try {
-		  const user = await Auth.currentAuthenticatedUser();
-		  if (user) {
-			 navigate('/devhirenet');
-		  }
-		} catch (err) {
-		}
-	 };
-  
-	 useEffect(() => {
-		checkIfLoggedIn();
-	 }, []);
+			if (isAuthenticated) {
+				navigate('/devhirenet')
+			}
+		} catch (err) {}
+	}
+
+	useEffect(() => {
+		checkIfLoggedIn()
+	}, [isAuthenticated])
 
 	const handleSignInSubmit = async e => {
 		e.preventDefault()
@@ -42,8 +39,6 @@ const Login = () => {
 			setError(err.message)
 		}
 	}
-
-
 
 	const handleSignUpSubmit = async e => {
 		e.preventDefault()
