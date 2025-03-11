@@ -234,7 +234,7 @@ const Login = () => {
 					{' '}
 					Paweł Bilski
 				</a>{' '}
-				©2023
+				©2025
 			</p>
 		</div>
 	)
